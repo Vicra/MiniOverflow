@@ -1,0 +1,67 @@
+﻿@model OverflowVictor.Web.Models.QuestionDetailModel
+
+@{
+    ViewBag.Title = "QuestionDetail";
+}
+
+<h2>QuestionDetail</h2>
+
+<div>
+    <h4>QuestionDetailModel</h4>
+	<hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.OwnerEmail)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OwnerEmail)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Votes)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Votes)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CreationDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CreationDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ModificaDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ModificaDate)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Answer Question", "AnswerQuestion", new { id = Model.Id },null) |
+    @Html.ActionLink("All Answers ", "AnswerList", new {id = Model.Id},null) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
