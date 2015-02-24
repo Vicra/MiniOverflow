@@ -81,18 +81,14 @@ namespace OverflowVictor.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult AnswerQuestion(AnswerQuestionModel model)
+        public ActionResult AnswerQuestion(AnswerQuestionModel model,Guid questionId)
         {
             Mapper.CreateMap<AnswerQuestionModel, Answer>().ReverseMap();
             var answer = Mapper.Map<AnswerQuestionModel, Answer>(model);
             var context = new OverflowVictorContext();
-
-            /*
-            answer.Id = Guid.Parse(HttpContext.User.Identity.Name);
-            context.Questions.Add(answer);
-            context.SaveChanges();
-             */
-             
+            answer.QuestionId = questionId;
+            context.Answers.Add(answer);
+            context.SaveChanges();             
             return RedirectToAction("Index", "Question");
         }
     }

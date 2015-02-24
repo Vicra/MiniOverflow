@@ -61,7 +61,7 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Answer Question", "AnswerQuestion", new { id = Model.Id },null) |
-    @Html.ActionLink("All Answers ", "AnswerList", new {id = Model.Id},null) |
+    @Html.ActionLink("Answer Question", "AnswerQuestion", new { questionId = Model.Id }, null) |
+    @Html.ActionLink("All Answers ", "AnswerList", new { questionId = Model.Id }, null) |
     @Html.ActionLink("Back to List", "Index")
 </p>

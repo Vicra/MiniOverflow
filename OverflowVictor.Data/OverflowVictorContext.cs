@@ -11,6 +11,7 @@ namespace OverflowVictor.Data
     public class OverflowVictorContext:DbContext
     {
         public DbSet<Account> Accounts { get; set; }
-        public DbSet<Question> Questions { get; set; }        
+        public DbSet<Question> Questions { get; set; }
+        public DbSet<Answer> Answers { get; set; } 
     }
 }
