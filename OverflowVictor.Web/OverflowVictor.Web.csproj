@@ -137,6 +137,7 @@
     <Compile Include="Models\AccountProfileModel.cs" />
     <Compile Include="Models\AccountRecoverPasswordModel.cs" />
     <Compile Include="Models\AccountRegisterModel.cs" />
+    <Compile Include="Models\AnswerQuestionModel.cs" />
     <Compile Include="Models\AnswersListModel.cs" />
     <Compile Include="Models\AskQuestionModel.cs" />
     <Compile Include="Models\QuestionDetailModel.cs" />

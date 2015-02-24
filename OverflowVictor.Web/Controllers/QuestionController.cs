@@ -88,18 +88,12 @@ namespace OverflowVictor.Web.Controllers
             var context = new OverflowVictorContext();
 
             /*
-            answer.Owner = Guid.Parse(HttpContext.User.Identity.Name);
+            answer.Id = Guid.Parse(HttpContext.User.Identity.Name);
             context.Questions.Add(answer);
             context.SaveChanges();
              */
+             
             return RedirectToAction("Index", "Question");
         }
     }
-
-    public class AnswerQuestionModel
-    {
-        public string Title { get; set; }
-        public string Description { get; set; }
-    }
-	
 }

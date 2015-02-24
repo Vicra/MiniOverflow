@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mail;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
@@ -71,9 +72,14 @@ namespace OverflowVictor.Web.Controllers
             return View(new AccountRecoverPasswordModel());
         }
         [HttpPost]
-        public ActionResult RecoverPassword(AccountRecoverPasswordModel model)
+        public ActionResult RecoverPassword(AccountRecoverPasswordModel model,Guid ownerId)
         {
-            return View(model);
+            Mail mail=new Mail();
+            var context = new OverflowVictorContext();
+            var owner = context.Accounts.Find(ownerId);
+            string message = "This is your password"+owner.Password;
+            mail.SendEmail(model.Email,"Recover Password",message);
+            return RedirectToAction("Login");
         }
         public ActionResult GoToProfile(Guid ownerId)
         {
@@ -82,6 +88,22 @@ namespace OverflowVictor.Web.Controllers
             var owner = context.Accounts.Find(ownerId);
             var model = Mapper.Map<Account, AccountProfileModel>(owner);
             return View(model);
+        }
+
+        public class Mail
+        {
+            public void SendEmail(string email,string subject,string message)
+            {
+                MailMessage mail = new MailMessage("mywebsmpt@gmail.com", email);
+                SmtpClient client = new SmtpClient();
+                client.Port = 25;
+                client.DeliveryMethod = SmtpDeliveryMethod.Network;
+                client.UseDefaultCredentials = false;
+                client.Host = "smtp.google.com";
+                mail.Subject = subject;
+                mail.Body = message;
+                client.Send(mail);  
+            }
         }
 	}
 }
