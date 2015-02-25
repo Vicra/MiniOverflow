@@ -20,12 +20,14 @@
         <th>
             @Html.DisplayNameFor(model => model.Votes)
         </th>
+        
         <th>
-            @Html.DisplayNameFor(model => model.AccountId)
+            @*@Html.DisplayNameFor(model => model.AccountId)*@
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.QuestionId)
+            @*@Html.DisplayNameFor(model => model.QuestionId)*@
         </th>
+        
         <th></th>
     </tr>
 
@@ -41,14 +43,16 @@
             @Html.DisplayFor(modelItem => item.Votes)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.AccountId)
+            @*@Html.DisplayFor(modelItem => item.AccountId)*@
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.QuestionId)
+            @*@Html.DisplayFor(modelItem => item.QuestionId)*@
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+        @*
+            @Html.ActionLink("Edit", "Edit", new {/* id=item.PrimaryKey */}) |
+            @Html.ActionLink("Delete", "Delete", new {/* id=item.PrimaryKey */})
+            *@
         </td>
     </tr>
 }

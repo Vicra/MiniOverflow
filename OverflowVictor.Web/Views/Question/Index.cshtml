@@ -41,9 +41,10 @@
         <td>
             @Html.ActionLink(item.OwnerName, "GoToProfile", "Account", new { ownerId = item.OwnerID }, null)
         </td>
-        <td>
+    <td>@*
             @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
             @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+            *@
         </td>
     </tr>
 }
