@@ -30,13 +30,16 @@ namespace OverflowVictor.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                Mapper.CreateMap<AccountRegisterModel, Account>();
-                var account = Mapper.Map<AccountRegisterModel, Account>(model);
+                if (model.Password == model.ConfirmPassword)
+                {
+                    Mapper.CreateMap<AccountRegisterModel, Account>();
+                    var account = Mapper.Map<AccountRegisterModel, Account>(model);
 
-                var context = new OverflowVictorContext();
-                context.Accounts.Add(account);
-                context.SaveChanges();
-                return RedirectToAction("Login");
+                    var context = new OverflowVictorContext();
+                    context.Accounts.Add(account);
+                    context.SaveChanges();
+                    return RedirectToAction("Login");
+                }
             }
             return View(model);
         }
@@ -72,12 +75,12 @@ namespace OverflowVictor.Web.Controllers
             return View(new AccountRecoverPasswordModel());
         }
         [HttpPost]
-        public ActionResult RecoverPassword(AccountRecoverPasswordModel model,Guid ownerId)
+        public ActionResult RecoverPassword(AccountRecoverPasswordModel model)
         {
             Mail mail=new Mail();
             var context = new OverflowVictorContext();
-            var owner = context.Accounts.Find(ownerId);
-            string message = "This is your password"+owner.Password;
+            var email = context.Accounts.FirstOrDefault(x=>x.Email == model.Email);
+            string message = "This is your password";
             mail.SendEmail(model.Email,"Recover Password",message);
             return RedirectToAction("Login");
         }
