@@ -17,7 +17,7 @@ namespace OverflowVictor.Domain.Entities
             CreationDate = DateTime.Now;
             ModificaDate = DateTime.Now;
         }
-
+        
         public virtual List<Answer> Answers { get; set; }
         public int Votes { get; set; }
         public string Title { get; set; }

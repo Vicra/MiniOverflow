@@ -46,13 +46,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Migrations\201502240056208_InitialCreate.cs" />
-    <Compile Include="Migrations\201502240056208_InitialCreate.Designer.cs">
-      <DependentUpon>201502240056208_InitialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201502240919003_Answer.cs" />
-    <Compile Include="Migrations\201502240919003_Answer.Designer.cs">
-      <DependentUpon>201502240919003_Answer.cs</DependentUpon>
+    <Compile Include="Migrations\201503030603097_Initial.cs" />
+    <Compile Include="Migrations\201503030603097_Initial.Designer.cs">
+      <DependentUpon>201503030603097_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="OverflowVictorContext.cs" />
@@ -69,11 +65,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201502240056208_InitialCreate.resx">
-      <DependentUpon>201502240056208_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201502240919003_Answer.resx">
-      <DependentUpon>201502240919003_Answer.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201503030603097_Initial.resx">
+      <DependentUpon>201503030603097_Initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

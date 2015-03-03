@@ -23,8 +23,8 @@ namespace OverflowVictor.Web.Controllers
             {
                 var model = Mapper.Map<Question, QuestionListModel>(q);
                 var owner = context.Accounts.Find(q.Owner);
+                model.OwnerId = owner.Id;
                 model.OwnerName = owner.Name;
-                model.OwnerID = owner.Id;
                 models.Add(model);
             }
             return View(models);
@@ -69,6 +69,8 @@ namespace OverflowVictor.Web.Controllers
             foreach (Answer a in question.Answers)
             {
                 var answer = Mapper.Map<Answer, AnswersListModel>(a);
+                var account = context.Accounts.Find(a.AccountId);
+                answer.OwnerName = account.Name;
                 models.Add(answer);
             }
             
@@ -87,6 +89,7 @@ namespace OverflowVictor.Web.Controllers
             var answer = Mapper.Map<AnswerQuestionModel, Answer>(model);
             var context = new OverflowVictorContext();
             answer.QuestionId = questionId;
+            answer.AccountId = Guid.Parse(HttpContext.User.Identity.Name);
             context.Answers.Add(answer);
             context.SaveChanges();             
             return RedirectToAction("Index", "Question");

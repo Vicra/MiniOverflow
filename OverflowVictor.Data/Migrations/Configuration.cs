@@ -10,7 +10,6 @@ namespace OverflowVictor.Data.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
-            ContextKey = "OverflowVictor.Data.OverflowVictorContext";
         }
 
         protected override void Seed(OverflowVictor.Data.OverflowVictorContext context)

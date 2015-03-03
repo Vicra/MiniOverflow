@@ -22,7 +22,7 @@
         </th>
         
         <th>
-            @*@Html.DisplayNameFor(model => model.AccountId)*@
+            @Html.DisplayNameFor(model => model.OwnerName)
         </th>
         <th>
             @*@Html.DisplayNameFor(model => model.QuestionId)*@
@@ -43,7 +43,7 @@
             @Html.DisplayFor(modelItem => item.Votes)
         </td>
         <td>
-            @*@Html.DisplayFor(modelItem => item.AccountId)*@
+            @Html.ActionLink(item.OwnerName, "GoToProfile", "Account", new { ownerId = item.AccountId }, null)
         </td>
         <td>
             @*@Html.DisplayFor(modelItem => item.QuestionId)*@

@@ -18,7 +18,7 @@
             @Html.DisplayNameFor(model => model.Votes)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.CreationDate)
+            @Html.DisplayNameFor(model => model.ModificaDate)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.OwnerName)
@@ -36,10 +36,10 @@
             @Html.DisplayFor(modelItem => item.Votes)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.CreationDate)
+            @Html.DisplayFor(modelItem => item.ModificaDate)
         </td>
         <td>
-            @Html.ActionLink(item.OwnerName, "GoToProfile", "Account", new { ownerId = item.OwnerID }, null)
+            @Html.ActionLink(item.OwnerName, "GoToProfile", "Account", new { ownerId = item.OwnerId }, null)
         </td>
     <td>@*
             @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
