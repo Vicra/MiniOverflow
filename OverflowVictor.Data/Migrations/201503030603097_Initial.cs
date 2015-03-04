@@ -43,7 +43,7 @@ namespace OverflowVictor.Data.Migrations
                         Description = c.String(),
                         Owner = c.Guid(nullable: false),
                         CreationDate = c.DateTime(nullable: false),
-                        ModificationDate = c.DateTime(nullable: false),
+                        ModificaDate = c.DateTime(nullable: false),
                     })
                 .PrimaryKey(t => t.Id);
             
