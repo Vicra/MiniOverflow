@@ -13,20 +13,19 @@ namespace OverflowVictor.Web.Controllers
     [Authorize]
     public class QuestionController : Controller
     {
+        public UnitOfWork unitOfWork= new UnitOfWork();
         [AllowAnonymous]
         public ActionResult Index()
         {
-            var models= new List<QuestionListModel>();
+            var questions =unitOfWork.QuestionRepository.Get();
+            var models = new List<QuestionListModel>();
             Mapper.CreateMap<Question, QuestionListModel>().ReverseMap();
-            var context = new OverflowVictorContext();
-            foreach (var q in context.Questions)
+            foreach (var q in questions)
             {
                 var model = Mapper.Map<Question, QuestionListModel>(q);
-                var owner = context.Accounts.Find(q.Owner);
-                model.OwnerId = owner.Id;
-                model.OwnerName = owner.Name;
+                model.OwnerId = q.Owner;
+                model.OwnerName = unitOfWork.AccountRepository.GetEntityById(model.OwnerId).Name;
                 models.Add(model);
-                //running code
             }
             return View(models);
         }
@@ -41,12 +40,10 @@ namespace OverflowVictor.Web.Controllers
         {
             Mapper.CreateMap<AskQuestionModel, Question>().ReverseMap();
             var question =Mapper.Map<AskQuestionModel, Question>(model);
-            var context = new OverflowVictorContext();
             question.Owner = Guid.Parse(HttpContext.User.Identity.Name);
-            context.Questions.Add(question);
-            context.SaveChanges();
+            unitOfWork.QuestionRepository.InsertEntity(question);
+            unitOfWork.Save();
             return RedirectToAction("Index","Question");
-
         }
 
         public ActionResult QuestionDetail(Guid questionId)

@@ -25,7 +25,7 @@ namespace OverflowVictor.Web.Controllers
         {
             return View(new AccountRegisterModel());
         }
-        [HttpPost]
+        [System.Web.Mvc.HttpPost]
         public ActionResult Register(AccountRegisterModel model)
         {
             if (ModelState.IsValid)
@@ -50,7 +50,7 @@ namespace OverflowVictor.Web.Controllers
             return View(new AccountLoginModel());
         }
 
-        [HttpPost]
+        [System.Web.Mvc.HttpPost]
         public ActionResult Login(AccountLoginModel model)
         {
             var context = new OverflowVictorContext();
@@ -74,7 +74,7 @@ namespace OverflowVictor.Web.Controllers
         {
             return View(new AccountRecoverPasswordModel());
         }
-        [HttpPost]
+        [System.Web.Mvc.HttpPost]
         public ActionResult RecoverPassword(AccountRecoverPasswordModel model)
         {
             Mail mail=new Mail();

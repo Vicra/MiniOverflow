@@ -2,13 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Linq.Expressions;
 
 namespace OverflowVictor.Data
 {
-    public class Repository<TEntity> : IRepository<TEntity>,IDisposable where TEntity : class
+    public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
     {
-        private OverflowVictorContext context;
-        private DbSet<TEntity> DbSet;
+        internal OverflowVictorContext context;
+        internal DbSet<TEntity> DbSet;
         private bool disposed;
         
 
@@ -38,40 +39,64 @@ namespace OverflowVictor.Data
             GC.SuppressFinalize(this);
         }
 
-        public IEnumerable<TEntity> GetEntities()
+        public virtual IEnumerable<TEntity> Get(
+            Expression<Func<TEntity, bool>> filter = null,
+            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
+            string includeProperties = "")
         {
-            return DbSet.ToList();
+            IQueryable<TEntity> query = DbSet;
+
+            if (filter != null)
+            {
+                query = query.Where(filter);
+            }
+
+            foreach (var includeProperty in includeProperties.Split
+                (new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+            {
+                query = query.Include(includeProperty);
+            }
+
+            if (orderBy != null)
+            {
+                return orderBy(query).ToList();
+            }
+            else
+            {
+                return query.ToList();
+            }
         }
 
-        private bool Compare(TEntity x, TEntity y)
-        {
-            return EqualityComparer<TEntity>.Default.Equals(x,y);
-        }
-
-        public TEntity GetEntityById(Guid entityId)
+        public virtual TEntity GetEntityById(object entityId)
         {
             return DbSet.Find(entityId);
         }
 
-        public void InsertEntity(TEntity entity)
+        public virtual void InsertEntity(TEntity entity)
         {
             DbSet.Add(entity);
         }
 
-        public void DeleteEntity(Guid entityId)
+        public virtual void Delete(object id)
         {
-            TEntity entity = DbSet.Find(entityId);
-            DbSet.Remove(entity);
+            TEntity entityToDelete = DbSet.Find(id);
+            Delete(entityToDelete);
+        }
+        public virtual void Delete(TEntity entityToDelete)
+        {
+            if (context.Entry(entityToDelete).State == EntityState.Detached)
+            {
+                DbSet.Attach(entityToDelete);
+            }
+            DbSet.Remove(entityToDelete);
         }
 
-        public void UpdateEntity(TEntity entity)
+        public virtual void Update(TEntity entityToUpdate)
         {
-            context.Entry(entity).State = EntityState.Modified;
+            DbSet.Attach(entityToUpdate);
+            context.Entry(entityToUpdate).State = EntityState.Modified;
         }
 
-        public void Save()
-        {
-            context.SaveChanges();
-        }
+       
     }
 }
