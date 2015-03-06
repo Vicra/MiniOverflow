@@ -9,6 +9,8 @@ using AutoMapper;
 using OverflowVictor.Data;
 using OverflowVictor.Domain.Entities;
 using OverflowVictor.Web.Models;
+using Restsharp;
+
 
 namespace OverflowVictor.Web.Controllers
 {
@@ -77,7 +79,7 @@ namespace OverflowVictor.Web.Controllers
         [System.Web.Mvc.HttpPost]
         public ActionResult RecoverPassword(AccountRecoverPasswordModel model)
         {
-            Mail mail=new Mail();
+            MailGun mail = new MailGun();
             var context = new OverflowVictorContext();
             var email = context.Accounts.FirstOrDefault(x=>x.Email == model.Email);
             string message = "This is your password";
@@ -93,20 +95,37 @@ namespace OverflowVictor.Web.Controllers
             return View(model);
         }
 
-        public class Mail
-        {
-            public void SendEmail(string email,string subject,string message)
-            {
-                MailMessage mail = new MailMessage("mywebsmpt@gmail.com", email);
-                SmtpClient client = new SmtpClient();
-                client.Port = 25;
-                client.DeliveryMethod = SmtpDeliveryMethod.Network;
-                client.UseDefaultCredentials = false;
-                client.Host = "smtp.google.com";
-                mail.Subject = subject;
-                mail.Body = message;
-                client.Send(mail);  
-            }
-        }
+        
 	}
+    class MailGun
+    {
+        public RestResponse SendWelcomeMessage(string email)
+        {
+            var client = ConfigureClient();
+            var request = ConfigureMail();
+            request.AddParameter("to", email);
+            request.AddParameter("subject", "Hello Victor");
+            request.AddParameter("text", "Congratulations Victor, you register was succesfully completed");
+            request.Method = Method.POST;
+            return (RestResponse)client.Execute(request);
+        }
+
+        public RestRequest ConfigureMail()
+        {
+            var request = new RestRequest();
+            request.AddParameter("domain", "sandbox53ba6c1c19ac44df9f33aab21a9652ce.mailgun.org", ParameterType.UrlSegment);
+            request.Resource = "{domain}/messages";
+            request.AddParameter("from", "Mailgun Sandbox <postmaster@sandbox53ba6c1c19ac44df9f33aab21a9652ce.mailgun.org>");
+            request.Method = Method.POST;
+            return request;
+        }
+
+        public RestClient ConfigureClient()
+        {
+            var client = new RestClient();
+            client.BaseUrl = new Uri("https://api.mailgun.net/v2");
+            client.Authenticator = new HttpBasicAuthenticator("api", "key-d3d6275966a0d01704ba582b9bbd30cd");
+            return client;
+        }
+    }
 }

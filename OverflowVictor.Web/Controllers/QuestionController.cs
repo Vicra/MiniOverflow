@@ -62,6 +62,9 @@ namespace OverflowVictor.Web.Controllers
         {
             var context = new OverflowVictorContext();
             var question = context.Questions.Find(questionId);
+
+            var answers=unitOfWork.AnswerRepository.GetEntityById(questionId);
+
             List<AnswersListModel> models = new List<AnswersListModel>();
             Mapper.CreateMap<Answer, AnswersListModel>();
             foreach (Answer a in question.Answers)
