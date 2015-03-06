@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System;
 using RestSharp;
 
-namespace OverflowVictor.Domain
+namespace OverflowVictor.Web
 {
     class MailGun
     {
@@ -36,6 +32,18 @@ namespace OverflowVictor.Domain
             client.BaseUrl = new Uri("https://api.mailgun.net/v2");
             client.Authenticator = new HttpBasicAuthenticator("api", "key-d3d6275966a0d01704ba582b9bbd30cd");
             return client;
+        }
+
+        public RestResponse SendRecoveryEmail(string email, string recoverPassword, string message)
+        {
+            var client = ConfigureClient();
+            var request = ConfigureMail();
+            request.AddParameter("to", email);
+            request.AddParameter("subject", "Hello Victor");
+            request.AddParameter("text", message);
+            request.AddParameter("text", "this is your password "+recoverPassword);
+            request.Method = Method.POST;
+            return (RestResponse)client.Execute(request);
         }
     }
 }

@@ -9,7 +9,6 @@ using AutoMapper;
 using OverflowVictor.Data;
 using OverflowVictor.Domain.Entities;
 using OverflowVictor.Web.Models;
-using Restsharp;
 
 
 namespace OverflowVictor.Web.Controllers
@@ -55,14 +54,20 @@ namespace OverflowVictor.Web.Controllers
         [System.Web.Mvc.HttpPost]
         public ActionResult Login(AccountLoginModel model)
         {
-            var context = new OverflowVictorContext();
-            var account = context.Accounts.FirstOrDefault(x => x.Email == model.Email && x.Password == model.Password);
-            if (account != null)
+            if (ModelState.IsValid)
             {
-                FormsAuthentication.SetAuthCookie(account.Id.ToString(), false);
-                return RedirectToAction("Index", "Question");
+                var context = new OverflowVictorContext();
+                var account =context.Accounts.FirstOrDefault(x => x.Email == model.Email && x.Password == model.Password);
+                if (account != null)
+                {
+                    FormsAuthentication.SetAuthCookie(account.Id.ToString(), false);
+                    MailGun mail = new MailGun();
+                    mail.SendWelcomeMessage(model.Email);
+                    return RedirectToAction("Index", "Question");
+                }
             }
-            return View(model);
+            ViewBag.Message="Invalid email or password ";
+            return View(new AccountLoginModel());
         }
 
         public ActionResult Logout()
@@ -76,14 +81,15 @@ namespace OverflowVictor.Web.Controllers
         {
             return View(new AccountRecoverPasswordModel());
         }
-        [System.Web.Mvc.HttpPost]
+        [HttpPost]
         public ActionResult RecoverPassword(AccountRecoverPasswordModel model)
         {
+            @ViewBag.Message = "Email sent";
             MailGun mail = new MailGun();
             var context = new OverflowVictorContext();
             var email = context.Accounts.FirstOrDefault(x=>x.Email == model.Email);
             string message = "This is your password";
-            mail.SendEmail(model.Email,"Recover Password",message);
+            mail.SendRecoveryEmail(model.Email,"Recover Password",message);
             return RedirectToAction("Login");
         }
         public ActionResult GoToProfile(Guid ownerId)
@@ -97,35 +103,4 @@ namespace OverflowVictor.Web.Controllers
 
         
 	}
-    class MailGun
-    {
-        public RestResponse SendWelcomeMessage(string email)
-        {
-            var client = ConfigureClient();
-            var request = ConfigureMail();
-            request.AddParameter("to", email);
-            request.AddParameter("subject", "Hello Victor");
-            request.AddParameter("text", "Congratulations Victor, you register was succesfully completed");
-            request.Method = Method.POST;
-            return (RestResponse)client.Execute(request);
-        }
-
-        public RestRequest ConfigureMail()
-        {
-            var request = new RestRequest();
-            request.AddParameter("domain", "sandbox53ba6c1c19ac44df9f33aab21a9652ce.mailgun.org", ParameterType.UrlSegment);
-            request.Resource = "{domain}/messages";
-            request.AddParameter("from", "Mailgun Sandbox <postmaster@sandbox53ba6c1c19ac44df9f33aab21a9652ce.mailgun.org>");
-            request.Method = Method.POST;
-            return request;
-        }
-
-        public RestClient ConfigureClient()
-        {
-            var client = new RestClient();
-            client.BaseUrl = new Uri("https://api.mailgun.net/v2");
-            client.Authenticator = new HttpBasicAuthenticator("api", "key-d3d6275966a0d01704ba582b9bbd30cd");
-            return client;
-        }
-    }
 }

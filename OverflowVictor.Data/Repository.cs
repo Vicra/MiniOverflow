@@ -67,12 +67,12 @@ namespace OverflowVictor.Data
             }
         }
 
-        public virtual TEntity GetEntityById(object entityId)
+        public virtual TEntity GetById(object entityId)
         {
             return DbSet.Find(entityId);
         }
 
-        public virtual void InsertEntity(TEntity entity)
+        public virtual void Insert(TEntity entity)
         {
             DbSet.Add(entity);
         }

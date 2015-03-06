@@ -24,7 +24,7 @@ namespace OverflowVictor.Web.Controllers
             {
                 var model = Mapper.Map<Question, QuestionListModel>(q);
                 model.OwnerId = q.Owner;
-                model.OwnerName = unitOfWork.AccountRepository.GetEntityById(model.OwnerId).Name;
+                model.OwnerName = unitOfWork.AccountRepository.GetById(model.OwnerId).Name;
                 models.Add(model);
             }
             return View(models);
@@ -41,40 +41,33 @@ namespace OverflowVictor.Web.Controllers
             Mapper.CreateMap<AskQuestionModel, Question>().ReverseMap();
             var question =Mapper.Map<AskQuestionModel, Question>(model);
             question.Owner = Guid.Parse(HttpContext.User.Identity.Name);
-            unitOfWork.QuestionRepository.InsertEntity(question);
+            unitOfWork.QuestionRepository.Insert(question);
             unitOfWork.Save();
             return RedirectToAction("Index","Question");
         }
-
+        [AllowAnonymous]
         public ActionResult QuestionDetail(Guid questionId)
         {
             Mapper.CreateMap<Question, QuestionDetailModel>();
-            var context = new OverflowVictorContext();
-            var question = context.Questions.Find(questionId);
-            var onw = context.Accounts.Find(question.Owner);
+            var question = unitOfWork.QuestionRepository.GetById(questionId);
+            var owner = unitOfWork.AccountRepository.GetById(question.Owner);
             var model = Mapper.Map<Question, QuestionDetailModel>(question);
-            model.OwnerEmail = onw.Email;
+            model.OwnerEmail = owner.Email;
             return View(model);
-
         }
-
+        [AllowAnonymous]
         public ActionResult AnswerList(Guid questionId)
         {
-            var context = new OverflowVictorContext();
-            var question = context.Questions.Find(questionId);
-
-            var answers=unitOfWork.AnswerRepository.GetEntityById(questionId);
-
+            var quest = unitOfWork.QuestionRepository.GetById(questionId);
             List<AnswersListModel> models = new List<AnswersListModel>();
             Mapper.CreateMap<Answer, AnswersListModel>();
-            foreach (Answer a in question.Answers)
+            foreach (Answer a in quest.Answers)
             {
                 var answer = Mapper.Map<Answer, AnswersListModel>(a);
-                var account = context.Accounts.Find(a.AccountId);
+                var account = unitOfWork.AccountRepository.GetById(a.AccountId);
                 answer.OwnerName = account.Name;
                 models.Add(answer);
             }
-            
             return View(models);
         }
 
@@ -88,11 +81,10 @@ namespace OverflowVictor.Web.Controllers
         {
             Mapper.CreateMap<AnswerQuestionModel, Answer>().ReverseMap();
             var answer = Mapper.Map<AnswerQuestionModel, Answer>(model);
-            var context = new OverflowVictorContext();
             answer.QuestionId = questionId;
             answer.AccountId = Guid.Parse(HttpContext.User.Identity.Name);
-            context.Answers.Add(answer);
-            context.SaveChanges();             
+            unitOfWork.AnswerRepository.Insert(answer);
+            unitOfWork.Save();            
             return RedirectToAction("Index", "Question");
         }
     }

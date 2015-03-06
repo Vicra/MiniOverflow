@@ -14,8 +14,8 @@ namespace OverflowVictor.Data
             Expression<Func<TEntity, bool>> filter = null,
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
             string includeProperties = "");
-        TEntity GetEntityById(object entityId);
-        void InsertEntity(TEntity entity);
+        TEntity GetById(object entityId);
+        void Insert(TEntity entity);
         void Delete(object id);
         void Delete(TEntity entityToDelete);
         void Update(TEntity entityToUpdate);
