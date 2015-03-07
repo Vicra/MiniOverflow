@@ -15,6 +15,7 @@ namespace OverflowVictor.Web.Controllers
 {
     public class AccountController : Controller
     {
+        public UnitOfWork unitOfWork = new UnitOfWork();
         public AccountController() { }
         readonly IMappingEngine _mappingEngine;
 
@@ -35,10 +36,8 @@ namespace OverflowVictor.Web.Controllers
                 {
                     Mapper.CreateMap<AccountRegisterModel, Account>();
                     var account = Mapper.Map<AccountRegisterModel, Account>(model);
-
-                    var context = new OverflowVictorContext();
-                    context.Accounts.Add(account);
-                    context.SaveChanges();
+                    unitOfWork.AccountRepository.Insert(account);
+                    unitOfWork.Save();
                     return RedirectToAction("Login");
                 }
             }
@@ -57,7 +56,7 @@ namespace OverflowVictor.Web.Controllers
             if (ModelState.IsValid)
             {
                 var context = new OverflowVictorContext();
-                var account =context.Accounts.FirstOrDefault(x => x.Email == model.Email && x.Password == model.Password);
+                var account = unitOfWork.AccountRepository.GetWithFilter(x => x.Email == model.Email && x.Password == model.Password);
                 if (account != null)
                 {
                     FormsAuthentication.SetAuthCookie(account.Id.ToString(), false);
@@ -86,8 +85,7 @@ namespace OverflowVictor.Web.Controllers
         {
             @ViewBag.Message = "Email sent";
             MailGun mail = new MailGun();
-            var context = new OverflowVictorContext();
-            var email = context.Accounts.FirstOrDefault(x=>x.Email == model.Email);
+            var email = unitOfWork.AccountRepository.GetWithFilter(x => x.Email == model.Email);
             string message = "This is your password";
             mail.SendRecoveryEmail(model.Email,"Recover Password",message);
             return RedirectToAction("Login");
@@ -95,12 +93,9 @@ namespace OverflowVictor.Web.Controllers
         public ActionResult GoToProfile(Guid ownerId)
         {
             Mapper.CreateMap<Account, AccountProfileModel>();
-            var context = new OverflowVictorContext();
-            var owner = context.Accounts.Find(ownerId);
+            var owner = unitOfWork.AccountRepository.GetById(ownerId);
             var model = Mapper.Map<Account, AccountProfileModel>(owner);
             return View(model);
-        }
-
-        
+        }   
 	}
 }

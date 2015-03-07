@@ -66,7 +66,11 @@ namespace OverflowVictor.Data
                 return query.ToList();
             }
         }
+        public TEntity GetWithFilter(Expression<Func<TEntity, bool>> filter)
+        {
 
+            return DbSet.FirstOrDefault(filter);
+        }
         public virtual TEntity GetById(object entityId)
         {
             return DbSet.Find(entityId);

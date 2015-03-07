@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using OverflowVictor.Web.CustomDataNotations;
 
 namespace OverflowVictor.Web.Models
 {
@@ -10,6 +11,7 @@ namespace OverflowVictor.Web.Models
         [EmailAddress]
         public string Email { get; set; }
         [Required]
+        [Password(ErrorMessage = "Password must contain a capital letter")]
         [DataType(DataType.Password)]
         public string Password { get; set; }
         [Required]
