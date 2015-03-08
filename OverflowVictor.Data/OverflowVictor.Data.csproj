@@ -52,6 +52,14 @@
     <Compile Include="Migrations\201503030603097_Initial.Designer.cs">
       <DependentUpon>201503030603097_Initial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201503070542235_column.cs" />
+    <Compile Include="Migrations\201503070542235_column.Designer.cs">
+      <DependentUpon>201503070542235_column.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201503070553506_entities.cs" />
+    <Compile Include="Migrations\201503070553506_entities.Designer.cs">
+      <DependentUpon>201503070553506_entities.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="OverflowVictorContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -73,6 +81,12 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201503030603097_Initial.resx">
       <DependentUpon>201503030603097_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201503070542235_column.resx">
+      <DependentUpon>201503070542235_column.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201503070553506_entities.resx">
+      <DependentUpon>201503070553506_entities.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
