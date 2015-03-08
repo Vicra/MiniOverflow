@@ -15,7 +15,7 @@ namespace OverflowVictor.Domain.Entities
         {
             Id = Guid.NewGuid();
             CreationDate = DateTime.Now;
-            ModificaDate = DateTime.Now;
+            ModificationDate = DateTime.Now;
         }
         
         public virtual ICollection<Answer> Answers { get; set; }
@@ -24,6 +24,6 @@ namespace OverflowVictor.Domain.Entities
         public string Description { get; set; }
         public Guid Owner { get; set; }
         public DateTime CreationDate { get; set; }
-        public DateTime ModificaDate { get; set; }
+        public DateTime ModificationDate { get; set; }
     }
 }

@@ -10,5 +10,7 @@ namespace OverflowVictor.Web.Models
         public Guid AccountId { get; set; }
         public Guid QuestionId { get; set; }
         public string OwnerName { get; set; }
+        public Guid Id { get; set; }
+
     }
 }

@@ -12,44 +12,45 @@
 <table class="table">
     <tr>
         <th>
+            @Html.DisplayNameFor(model => model.Votes)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.Title)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Description)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Votes)
-        </th>
-        
-        <th>
             @Html.DisplayNameFor(model => model.OwnerName)
         </th>
         <th>
             @*@Html.DisplayNameFor(model => model.QuestionId)*@
         </th>
-        
         <th></th>
     </tr>
 
 @foreach (var item in Model) {
     <tr>
         <td>
+            @Html.ActionLink("+", "VoteUpAnswer", "Question", new { answerId = item.Id }, new { @class = "link-button" })  |  
+            @Html.ActionLink("-", "VoteDownAnswer", "Question", new { answerId = item.Id }, new { @class = "link-button" })<br />
+              @Html.DisplayFor(modelItem => item.Votes)
+        </td>
+        <td>
             @Html.DisplayFor(modelItem => item.Title)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Description)
         </td>
+
         <td>
-            @Html.DisplayFor(modelItem => item.Votes)
-        </td>
-        <td>
-            @Html.ActionLink(item.OwnerName, "GoToProfile", "Account", new { ownerId = item.AccountId }, null)
+            @Html.ActionLink(item.OwnerName, "GoToProfile", "Account", new {ownerId = item.AccountId}, null)
         </td>
         <td>
             @*@Html.DisplayFor(modelItem => item.QuestionId)*@
         </td>
         <td>
-        @*
+            @*
             @Html.ActionLink("Edit", "Edit", new {/* id=item.PrimaryKey */}) |
             @Html.ActionLink("Delete", "Delete", new {/* id=item.PrimaryKey */})
             *@

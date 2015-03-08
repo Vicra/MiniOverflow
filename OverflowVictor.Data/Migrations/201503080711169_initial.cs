@@ -3,7 +3,7 @@ namespace OverflowVictor.Data.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class Initial : DbMigration
+    public partial class initial : DbMigration
     {
         public override void Up()
         {
@@ -28,9 +28,12 @@ namespace OverflowVictor.Data.Migrations
                         Votes = c.Int(nullable: false),
                         AccountId = c.Guid(nullable: false),
                         QuestionId = c.Guid(nullable: false),
+                        Correct = c.Boolean(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.Accounts", t => t.AccountId, cascadeDelete: true)
                 .ForeignKey("dbo.Questions", t => t.QuestionId, cascadeDelete: true)
+                .Index(t => t.AccountId)
                 .Index(t => t.QuestionId);
             
             CreateTable(
@@ -43,16 +46,23 @@ namespace OverflowVictor.Data.Migrations
                         Description = c.String(),
                         Owner = c.Guid(nullable: false),
                         CreationDate = c.DateTime(nullable: false),
-                        ModificaDate = c.DateTime(nullable: false),
+                        ModificationDate = c.DateTime(nullable: false),
+                        Account_Id = c.Guid(),
                     })
-                .PrimaryKey(t => t.Id);
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.Accounts", t => t.Account_Id)
+                .Index(t => t.Account_Id);
             
         }
         
         public override void Down()
         {
+            DropForeignKey("dbo.Questions", "Account_Id", "dbo.Accounts");
             DropForeignKey("dbo.Answers", "QuestionId", "dbo.Questions");
+            DropForeignKey("dbo.Answers", "AccountId", "dbo.Accounts");
+            DropIndex("dbo.Questions", new[] { "Account_Id" });
             DropIndex("dbo.Answers", new[] { "QuestionId" });
+            DropIndex("dbo.Answers", new[] { "AccountId" });
             DropTable("dbo.Questions");
             DropTable("dbo.Answers");
             DropTable("dbo.Accounts");

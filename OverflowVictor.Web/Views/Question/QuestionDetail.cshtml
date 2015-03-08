@@ -11,6 +11,17 @@
 	<hr />
     <dl class="dl-horizontal">
         <dt>
+            @Html.ActionLink("+", "VoteUpQuestion", "Question",new {questionId=Model.Id},  new {@class = "link-button"})<br/>
+            @Html.ActionLink("-", "VoteDownQuestion", "Question", new { questionId = Model.Id }, new { @class = "link-button" })<br />
+            @Html.DisplayNameFor(model => model.Votes)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Votes)
+            @Html.ActionLink("-", "VoteDownQuestion", "Question", null, new { @class = "link-button" })<br />
+            
+        </dd>
+        <dt>
             @Html.DisplayNameFor(model => model.Title)
         </dt>
 
@@ -34,13 +45,7 @@
             @Html.DisplayFor(model => model.OwnerEmail)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Votes)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Votes)
-        </dd>
 
         <dt>
             @Html.DisplayNameFor(model => model.CreationDate)

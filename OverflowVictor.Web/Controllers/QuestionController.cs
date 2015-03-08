@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Routing;
 using AutoMapper;
 using OverflowVictor.Data;
 using OverflowVictor.Domain.Entities;
@@ -85,6 +86,41 @@ namespace OverflowVictor.Web.Controllers
             answer.AccountId = Guid.Parse(HttpContext.User.Identity.Name);
             unitOfWork.AnswerRepository.Insert(answer);
             unitOfWork.Save();            
+            return RedirectToAction("Index", "Question");
+        }
+
+        public ActionResult VoteUpQuestion(Guid questionId)
+        {
+            var question = unitOfWork.QuestionRepository.GetById(questionId);
+            question.Votes += 1;
+            unitOfWork.QuestionRepository.Update(question);
+            unitOfWork.Save();
+            return RedirectToAction("Index", "Question");
+        }
+
+        public ActionResult VoteDownQuestion(Guid questionId)
+        {
+            var question = unitOfWork.QuestionRepository.GetById(questionId);
+            question.Votes -= 1;
+            unitOfWork.QuestionRepository.Update(question);
+            unitOfWork.Save();
+            return RedirectToAction("Index", "Question");
+        }
+        public ActionResult VoteUpAnswer(Guid answerId)
+        {
+            var answer = unitOfWork.AnswerRepository.GetById(answerId);
+            answer.Votes += 1;
+            unitOfWork.AnswerRepository.Update(answer);
+            unitOfWork.Save();
+            return RedirectToAction("Index", "Question");
+        }
+
+        public ActionResult VoteDownAnswer(Guid answerId)
+        {
+            var answer = unitOfWork.AnswerRepository.GetById(answerId);
+            answer.Votes -= 1;
+            unitOfWork.AnswerRepository.Update(answer);
+            unitOfWork.Save();
             return RedirectToAction("Index", "Question");
         }
     }
