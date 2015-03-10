@@ -14,11 +14,12 @@ namespace OverflowVictor.Web.Controllers
     [Authorize]
     public class QuestionController : Controller
     {
-        public UnitOfWork unitOfWork= new UnitOfWork();
+        public UnitOfWork unitOfWork = new UnitOfWork();
+
         [AllowAnonymous]
         public ActionResult Index()
         {
-            var questions =unitOfWork.QuestionRepository.Get();
+            var questions = unitOfWork.QuestionRepository.Get();
             var models = new List<QuestionListModel>();
             Mapper.CreateMap<Question, QuestionListModel>().ReverseMap();
             foreach (var q in questions)
@@ -40,12 +41,13 @@ namespace OverflowVictor.Web.Controllers
         public ActionResult AskQuestion(AskQuestionModel model)
         {
             Mapper.CreateMap<AskQuestionModel, Question>().ReverseMap();
-            var question =Mapper.Map<AskQuestionModel, Question>(model);
+            var question = Mapper.Map<AskQuestionModel, Question>(model);
             question.Owner = Guid.Parse(HttpContext.User.Identity.Name);
             unitOfWork.QuestionRepository.Insert(question);
             unitOfWork.Save();
-            return RedirectToAction("Index","Question");
+            return RedirectToAction("Index", "Question");
         }
+
         [AllowAnonymous]
         public ActionResult QuestionDetail(Guid questionId)
         {
@@ -56,6 +58,7 @@ namespace OverflowVictor.Web.Controllers
             model.OwnerEmail = owner.Email;
             return View(model);
         }
+
         [AllowAnonymous]
         public ActionResult AnswerList(Guid questionId)
         {
@@ -78,50 +81,51 @@ namespace OverflowVictor.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult AnswerQuestion(AnswerQuestionModel model,Guid questionId)
+        public ActionResult AnswerQuestion(AnswerQuestionModel model, Guid questionId)
         {
             Mapper.CreateMap<AnswerQuestionModel, Answer>().ReverseMap();
             var answer = Mapper.Map<AnswerQuestionModel, Answer>(model);
             answer.QuestionId = questionId;
             answer.AccountId = Guid.Parse(HttpContext.User.Identity.Name);
             unitOfWork.AnswerRepository.Insert(answer);
-            unitOfWork.Save();            
+            unitOfWork.Save();
             return RedirectToAction("Index", "Question");
         }
-
-        public ActionResult VoteUpQuestion(Guid questionId)
+        public ActionResult VoteUpQuestion(Guid questId)
         {
-            var question = unitOfWork.QuestionRepository.GetById(questionId);
+            var question = unitOfWork.QuestionRepository.GetById(questId);
             question.Votes += 1;
             unitOfWork.QuestionRepository.Update(question);
             unitOfWork.Save();
-            return RedirectToAction("Index", "Question");
+            return RedirectToAction("QuestionDetail", "Question",new{questionId=questId});
         }
-
-        public ActionResult VoteDownQuestion(Guid questionId)
+        
+        public ActionResult VoteDownQuestion(Guid questId)
         {
-            var question = unitOfWork.QuestionRepository.GetById(questionId);
+            var question = unitOfWork.QuestionRepository.GetById(questId);
             question.Votes -= 1;
             unitOfWork.QuestionRepository.Update(question);
             unitOfWork.Save();
-            return RedirectToAction("Index", "Question");
+            return RedirectToAction("QuestionDetail", "Question", new { questionId = questId });
         }
+
         public ActionResult VoteUpAnswer(Guid answerId)
         {
             var answer = unitOfWork.AnswerRepository.GetById(answerId);
             answer.Votes += 1;
             unitOfWork.AnswerRepository.Update(answer);
             unitOfWork.Save();
-            return RedirectToAction("Index", "Question");
+            return RedirectToAction("AnswerList", "Question", new{questionId=answer.QuestionId});
         }
-
+        
         public ActionResult VoteDownAnswer(Guid answerId)
         {
             var answer = unitOfWork.AnswerRepository.GetById(answerId);
             answer.Votes -= 1;
             unitOfWork.AnswerRepository.Update(answer);
             unitOfWork.Save();
-            return RedirectToAction("Index", "Question");
+            return RedirectToAction("AnswerList", "Question", new { questionId = answer.QuestionId });
+
         }
     }
 }

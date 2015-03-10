@@ -11,8 +11,9 @@
 	<hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.ActionLink("+", "VoteUpQuestion", "Question",new {questionId=Model.Id},  new {@class = "link-button"})<br/>
-            @Html.ActionLink("-", "VoteDownQuestion", "Question", new { questionId = Model.Id }, new { @class = "link-button" })<br />
+            @Html.ActionLink("+", "VoteUpQuestion", "Question", new { questId = Model.Id }, new { @class = "link-button" }) |
+            @Html.ActionLink("-", "VoteDownQuestion", "Question", new { questId = Model.Id }, new { @class = "link-button" })<br />
+            
             @Html.DisplayNameFor(model => model.Votes)
         </dt>
 

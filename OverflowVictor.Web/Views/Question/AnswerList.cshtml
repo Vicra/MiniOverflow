@@ -32,8 +32,9 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.ActionLink("+", "VoteUpAnswer", "Question", new { answerId = item.Id }, new { @class = "link-button" })  |  
-            @Html.ActionLink("-", "VoteDownAnswer", "Question", new { answerId = item.Id }, new { @class = "link-button" })<br />
+            @Html.ActionLink("+", "VoteUpAnswer", "Question", new { answerId = item.Id }, new { @class = "link-button" })  |
+            @Html.ActionLink("-", "VoteDownAnswer", "Question", new {answerId = item.Id}, new {@class = "link-button"})<br/>
+            
               @Html.DisplayFor(modelItem => item.Votes)
         </td>
         <td>
