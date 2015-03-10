@@ -16,6 +16,7 @@ namespace OverflowVictor.Domain.Entities
             Id = Guid.NewGuid();
             CreationDate = DateTime.Now;
             ModificationDate = DateTime.Now;
+            HasCorrectAnswer = false;
         }
         
         public virtual ICollection<Answer> Answers { get; set; }
@@ -25,5 +26,7 @@ namespace OverflowVictor.Domain.Entities
         public Guid Owner { get; set; }
         public DateTime CreationDate { get; set; }
         public DateTime ModificationDate { get; set; }
+        public bool HasCorrectAnswer { get; set; }
+
     }
 }

@@ -1,4 +1,5 @@
-﻿@model IEnumerable<OverflowVictor.Web.Models.AnswersListModel>
+﻿@using System.Diagnostics.Eventing.Reader
+@model IEnumerable<OverflowVictor.Web.Models.AnswersListModel>
 
 @{
     ViewBag.Title = "AnswerList";
@@ -11,6 +12,9 @@
 </p>
 <table class="table">
     <tr>
+        <th>
+            
+        </th>
         <th>
             @Html.DisplayNameFor(model => model.Votes)
         </th>
@@ -32,10 +36,24 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.ActionLink("+", "VoteUpAnswer", "Question", new { answerId = item.Id }, new { @class = "link-button" })  |
-            @Html.ActionLink("-", "VoteDownAnswer", "Question", new {answerId = item.Id}, new {@class = "link-button"})<br/>
+            @using (Html.BeginForm("SelectCorrectAnswer", "Question", item))
+            {
+                if (item.Correct)
+                {
+                    <button type="button" class="btn btn-success">Correct</button>
+                }
+                else
+                {
+                    <button class="btn btn-default" type="submit">Correct</button>
+                }
+            }
             
-              @Html.DisplayFor(modelItem => item.Votes)
+        </td>
+        <td>
+            @Html.ActionLink("+", "VoteUpAnswer", "Question", new {answerId = item.Id}, new {@class = "link-button"}) |
+            @Html.ActionLink("-", "VoteDownAnswer", "Question", new {answerId = item.Id}, new {@class = "link-button"})<br/>
+
+            @Html.DisplayFor(modelItem => item.Votes)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Title)
@@ -48,6 +66,7 @@
             @Html.ActionLink(item.OwnerName, "GoToProfile", "Account", new {ownerId = item.AccountId}, null)
         </td>
         <td>
+
             @*@Html.DisplayFor(modelItem => item.QuestionId)*@
         </td>
         <td>

@@ -127,5 +127,21 @@ namespace OverflowVictor.Web.Controllers
             return RedirectToAction("AnswerList", "Question", new { questionId = answer.QuestionId });
 
         }
+
+        public ActionResult SelectCorrectAnswer(AnswersListModel model)
+        {
+            var question = unitOfWork.QuestionRepository.GetById(model.QuestionId);
+            if (question.HasCorrectAnswer == false)
+            {
+                Mapper.CreateMap<AnswersListModel, Answer>();
+                question.HasCorrectAnswer = true;
+                var answer = Mapper.Map<AnswersListModel, Answer>(model);
+                answer.Correct = true;
+                unitOfWork.QuestionRepository.Update(question);
+                unitOfWork.AnswerRepository.Update(answer);
+                unitOfWork.Save();
+            }
+            return RedirectToAction("AnswerList", "Question", new { questionId = model.QuestionId });
+        }
     }
 }

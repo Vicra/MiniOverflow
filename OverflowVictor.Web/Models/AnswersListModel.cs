@@ -11,6 +11,7 @@ namespace OverflowVictor.Web.Models
         public Guid QuestionId { get; set; }
         public string OwnerName { get; set; }
         public Guid Id { get; set; }
+        public bool Correct { get; set; }
 
     }
 }

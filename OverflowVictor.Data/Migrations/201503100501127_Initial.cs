@@ -3,7 +3,7 @@ namespace OverflowVictor.Data.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class initial : DbMigration
+    public partial class Initial : DbMigration
     {
         public override void Up()
         {
@@ -47,6 +47,7 @@ namespace OverflowVictor.Data.Migrations
                         Owner = c.Guid(nullable: false),
                         CreationDate = c.DateTime(nullable: false),
                         ModificationDate = c.DateTime(nullable: false),
+                        HasCorrectAnswer = c.Boolean(nullable: false),
                         Account_Id = c.Guid(),
                     })
                 .PrimaryKey(t => t.Id)
