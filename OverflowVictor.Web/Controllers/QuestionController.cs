@@ -27,7 +27,7 @@ namespace OverflowVictor.Web.Controllers
                 var model = Mapper.Map<Question, QuestionListModel>(q);
                 model.OwnerId = q.Owner;
                 model.OwnerName = unitOfWork.AccountRepository.GetById(model.OwnerId).Name;
-                models.Add(model);
+                models.Add(model); 
             }
             return View(models);
         }
@@ -53,8 +53,11 @@ namespace OverflowVictor.Web.Controllers
         {
             Mapper.CreateMap<Question, QuestionDetailModel>();
             var question = unitOfWork.QuestionRepository.GetById(questionId);
+            var context = new OverflowVictorContext();
+            var quest = context.Questions.Find(questionId);
+            
             var owner = unitOfWork.AccountRepository.GetById(question.Owner);
-            var model = Mapper.Map<Question, QuestionDetailModel>(question);
+            var model = Mapper.Map<Question, QuestionDetailModel>(quest);
             model.OwnerEmail = owner.Email;
             return View(model);
         }

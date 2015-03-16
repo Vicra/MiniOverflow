@@ -13,8 +13,10 @@ using OverflowVictor.Web.Models;
 
 namespace OverflowVictor.Web.Controllers
 {
+    [Login]
     public class AccountController : Controller
     {
+        
         public UnitOfWork unitOfWork = new UnitOfWork();
         public AccountController() { }
         readonly IMappingEngine _mappingEngine;
@@ -44,13 +46,12 @@ namespace OverflowVictor.Web.Controllers
             return View(model);
         }
 
-
         public ActionResult Login()
         {
             return View(new AccountLoginModel());
         }
 
-        [System.Web.Mvc.HttpPost]
+        [HttpPost]
         public ActionResult Login(AccountLoginModel model)
         {
             if (ModelState.IsValid)
@@ -64,8 +65,9 @@ namespace OverflowVictor.Web.Controllers
                     mail.SendWelcomeMessage(model.Email);
                     return RedirectToAction("Index", "Question");
                 }
+                ViewBag.Message = "Invalid email or password ";
             }
-            ViewBag.Message="Invalid email or password ";
+            
             return View(new AccountLoginModel());
         }
 

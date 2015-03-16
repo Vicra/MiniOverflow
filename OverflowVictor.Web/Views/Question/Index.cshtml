@@ -31,10 +31,9 @@
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.Votes);
-            
         </td>
         <td>
-            @Html.ActionLink(item.Title, "QuestionDetail", new {questionId = item.Id}, null);
+            @Html.ActionLink(item.Title, "QuestionDetail", new {questionId = item.Id},null);
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.ModificationDate)
