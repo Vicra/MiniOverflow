@@ -17,7 +17,7 @@ namespace OverflowVictor.Web.Controllers
         private static readonly ILog logger = LogManager.GetLogger(typeof(LoginAttribute));
         public void OnResultExecuting(ResultExecutingContext filterContext)
         {
-            throw new System.NotImplementedException();
+            
         }
 
         public void LogEvents()
@@ -28,7 +28,7 @@ namespace OverflowVictor.Web.Controllers
         }
         public void OnResultExecuted(ResultExecutedContext filterContext)
         {
-            throw new System.NotImplementedException();
+            
         }
 
         public void OnAuthorization(AuthorizationContext filterContext)
@@ -47,12 +47,12 @@ namespace OverflowVictor.Web.Controllers
 
         public void OnActionExecuting(ActionExecutingContext filterContext)
         {
-            throw new System.NotImplementedException();
+            
         }
 
         public void OnActionExecuted(ActionExecutedContext filterContext)
         {
-            throw new System.NotImplementedException();
+            
         }
     }
 }
