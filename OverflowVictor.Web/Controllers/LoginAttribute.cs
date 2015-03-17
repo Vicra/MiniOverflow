@@ -42,6 +42,8 @@ namespace OverflowVictor.Web.Controllers
         {
             string m = filterContext.Exception.Message;
             logger.Error(m);
+            filterContext.ExceptionHandled = true;
+            filterContext.Result = new ViewResult();
 
         }
 
