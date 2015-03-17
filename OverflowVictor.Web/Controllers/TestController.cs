@@ -5,10 +5,12 @@ namespace OverflowVictor.Web.Controllers
     public class TestController : ApiController
     {
         //GET: api/test
+        /*
         public string[] GetQuestions()
         {
             return new []{"test1","test2"};
         }
+        */
         public TestModel[] GetQuestions2(int id)
         {
             return new []
@@ -17,6 +19,8 @@ namespace OverflowVictor.Web.Controllers
                 new TestModel{Id=2,Nombre = "test2"}
             };
         }
+         
+         
         //POST: api/test
         public string [] PostNewQuestion([FromBody]TestModel model)
         {

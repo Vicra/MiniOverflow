@@ -9,7 +9,7 @@ namespace OverflowVictor.Web.Models
         public string OwnerEmail { get; set; }
         public int Votes { get; set; }
         public DateTime CreationDate { get; set; }
-        public DateTime ModificaDate { get; set; }
+        public DateTime ModificationDate { get; set; }
         public Guid Id { get; set; }
     }
 }
