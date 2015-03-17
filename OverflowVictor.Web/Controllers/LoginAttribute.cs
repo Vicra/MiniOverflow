@@ -37,7 +37,7 @@ namespace OverflowVictor.Web.Controllers
             string controller = filterContext.ActionDescriptor.ControllerDescriptor.ControllerName;
             logger.Info(action+controller);
         }
-
+        /*
         public void OnException(ExceptionContext filterContext)
         {
             string m = filterContext.Exception.Message;
@@ -46,6 +46,7 @@ namespace OverflowVictor.Web.Controllers
             filterContext.Result = new ViewResult();
 
         }
+          */
 
         public void OnActionExecuting(ActionExecutingContext filterContext)
         {
