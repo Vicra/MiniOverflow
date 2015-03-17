@@ -13,7 +13,7 @@ using OverflowVictor.Web.Models;
 
 namespace OverflowVictor.Web.Controllers
 {
-    [Login]
+    
     public class AccountController : Controller
     {//changes
         
