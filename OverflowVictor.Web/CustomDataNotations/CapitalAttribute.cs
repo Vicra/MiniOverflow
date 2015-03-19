@@ -1,16 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
+using System.Configuration;
+using System.Runtime.InteropServices;
+using System.Security.Cryptography.X509Certificates;
 using System.Web;
 
 namespace OverflowVictor.Web.CustomDataNotations
 {
-    public class PasswordAttribute:ValidationAttribute
+    public class CapitalAttribute:ValidationAttribute
     {
         public override bool IsValid(object value)
         {
-            var stringValue = value.ToString();
+            var stringValue = (string)value;
             var string2 = stringValue.ToLower();
             if (stringValue.Equals(string2))
                 return false;

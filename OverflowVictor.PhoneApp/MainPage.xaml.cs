@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.ServiceModel.Channels;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
@@ -20,7 +21,6 @@ namespace OverflowVictor.PhoneApp
         {
             InitializeComponent();
 
-  
             DataContext = App.ViewModel;
         }
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -30,13 +30,7 @@ namespace OverflowVictor.PhoneApp
                 App.ViewModel.LoadData();
             }
         }
-        private void MainLongListSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (MainLongListSelector.SelectedItem == null)
-                return;
-            NavigationService.Navigate(new Uri("/DetailsPage.xaml?selectedItem=" + (MainLongListSelector.SelectedItem as ItemViewModel).ID, UriKind.Relative));
-            MainLongListSelector.SelectedItem = null;
-        }
+        
 
         private void Save_Click(object sender, EventArgs e)
         {
@@ -58,6 +52,11 @@ namespace OverflowVictor.PhoneApp
         private void Login_Click(object sender, EventArgs e)
         {
             NavigationService.Navigate(new Uri("/Login.xaml", UriKind.Relative));
+        }
+
+        private void AnswerQuestion_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Answere Question");
         }
     }
 }

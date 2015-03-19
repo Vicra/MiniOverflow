@@ -29,24 +29,43 @@
 
         <!--ContentPanel contains LongListSelector and LongListSelector ItemTemplate. Place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
-            <phone:LongListSelector x:Name="MainLongListSelector" Margin="10,10,-22,-10" ItemsSource="{Binding Items}" SelectionChanged="MainLongListSelector_SelectionChanged" FontSize="15">
-                <phone:LongListSelector.ItemTemplate>
+            <ListBox x:Name="toDoItemsListBox" ItemsSource="{Binding ToDoItems}" 
+                     Grid.Row="0" Margin="12, 0, 12, 0" Width="440">
+                <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <StackPanel Margin="0,0,0,17">
-                            <TextBlock Text="{Binding LineOne}" TextWrapping="Wrap" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
-                            <TextBlock Text="{Binding LineTwo}" TextWrapping="Wrap" Margin="12,-6,12,0" Style="{StaticResource PhoneTextSubtleStyle}"/>
-                        </StackPanel>
+                        <Grid HorizontalAlignment="Stretch" Width="440">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="50"/>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="100" />
+                            </Grid.ColumnDefinitions>
+                            <Image Height="75" Width="75" Margin="15" Stretch="UniformToFill" 
+                            Source="/Assets/question.png" VerticalAlignment="Top"/>
+                            <TextBlock
+                                Text="{Binding ItemName}"
+                                FontSize="{StaticResource PhoneFontSizeLarge}"
+                                Grid.Column="1"
+                                VerticalAlignment="Center"/>
+                            <Button
+                                Grid.Column="1"
+                                x:Name="AnswerQuestion"
+                                BorderThickness="0"                                
+                                Margin="0"
+                                Click="AnswerQuestion_Click">
+                                <Image Source="/Assets/plus.png"/>    
+                            </Button>
+                        </Grid>
                     </DataTemplate>
-                </phone:LongListSelector.ItemTemplate>
-            </phone:LongListSelector>
+                </ListBox.ItemTemplate>
+            </ListBox>
         </Grid>
 
     </Grid>
     <phone:PhoneApplicationPage.ApplicationBar>
         <shell:ApplicationBar Mode="Default" Opacity="1.0" IsMenuEnabled="True" IsVisible="True">
 
-            <shell:ApplicationBarIconButton Click="Save_Click" IconUri="/Images/save.png" Text="save" />
-            <shell:ApplicationBarIconButton Click="Settings_Click" IconUri="/Images/settings.png" Text="settings" />
+            <shell:ApplicationBarIconButton Click="Save_Click" IconUri="/Assets/plus.png" Text="save" />
+            <shell:ApplicationBarIconButton Click="Settings_Click" IconUri="/Assets/question.png" Text="settings" />
 
             <shell:ApplicationBar.MenuItems>
                 <shell:ApplicationBarMenuItem Click="Register_Click" Text="Register" />
