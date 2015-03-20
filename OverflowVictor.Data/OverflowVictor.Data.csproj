@@ -52,6 +52,10 @@
     <Compile Include="Migrations\201503191821103_Initial.Designer.cs">
       <DependentUpon>201503191821103_Initial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201503201343342_AccountConfirmation.cs" />
+    <Compile Include="Migrations\201503201343342_AccountConfirmation.Designer.cs">
+      <DependentUpon>201503201343342_AccountConfirmation.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="OverflowVictorContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -73,6 +77,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201503191821103_Initial.resx">
       <DependentUpon>201503191821103_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201503201343342_AccountConfirmation.resx">
+      <DependentUpon>201503201343342_AccountConfirmation.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

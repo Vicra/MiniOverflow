@@ -35,16 +35,29 @@ namespace OverflowVictor.Web.Controllers
         {
             if (ModelState.IsValid)
             {
+                var validateEmailAccount = unitOfWork.AccountRepository.GetWithFilter(x=>x.Email==model.Email);
+                if (validateEmailAccount == null)
+                {
+                    TempData["Error"] = "mensaje de error";
+                    return View(new AccountRegisterModel());
+                }
                 if (model.Password == model.ConfirmPassword)
                 {
                     Mapper.CreateMap<AccountRegisterModel, Account>();
                     var account = Mapper.Map<AccountRegisterModel, Account>(model);
                     unitOfWork.AccountRepository.Insert(account);
                     unitOfWork.Save();
-                    mail.SendWelcomeMessage(model.Email);
-                    /* Add register successful message*/
+
+                    var host = HttpContext.Request.Url.Host;
+                    if (host == "localhost")
+                        host = Request.Url.GetLeftPart(UriPartial.Authority);
+                    mail.SendWelcomeMessage(account.Name, account.Email,
+                        host + "/Account/ConfirmRegistration/" + account.Id.ToString());
+
+                    TempData["Success"] = "An email has been sent, You need to confirm your account!";
                     return RedirectToAction("Login");
                 }
+                
                 ModelState.AddModelError("Error", "Password and Confirm Passsword must be the same");
             }
             return View(model);
@@ -95,7 +108,7 @@ namespace OverflowVictor.Web.Controllers
                     var host = HttpContext.Request.Url.Host;
                     if(host=="localhost")
                         host = Request.Url.GetLeftPart(UriPartial.Authority);
-                    mail.SendRecoveryEmail(account.Email,host+"/Account/ChangePassword/"+account.Id.ToString());
+                    mail.SendRecoveryEmail(account.Name,account.Email,host+"/Account/ChangePassword/?id="+account.Id);
 
                     TempData["Success"] = "An email has been sent with instructions to recover your password.";
                     return View(model);
@@ -107,13 +120,13 @@ namespace OverflowVictor.Web.Controllers
         
         public ActionResult ChangePassword(Guid id)
         {
-            var model = new ChangePasswordModel() {OwnerId = id};
+            var model = new ChangePasswordModel();
             return View(model);
         }
         [HttpPost]
-        public ActionResult ChangePassword(ChangePasswordModel model)
+        public ActionResult ChangePassword(ChangePasswordModel model,Guid id)
         {
-            var account = unitOfWork.AccountRepository.GetById(model.OwnerId);
+            var account = unitOfWork.AccountRepository.GetById(id);
             if (ModelState.IsValid)
             {
                 if (model.Password == model.ConfirmPassword)
@@ -121,7 +134,7 @@ namespace OverflowVictor.Web.Controllers
                     account.Password = model.Password;
                     unitOfWork.AccountRepository.Update(account);
                     unitOfWork.Save();
-                    /*Add change password  successful message*/
+                    TempData["Success"] = "Your password has been Updated";
                     return RedirectToAction("Login");
                 }
                 ModelState.AddModelError("Error", "Password and Confirm Passsword must be the same");
@@ -135,6 +148,16 @@ namespace OverflowVictor.Web.Controllers
             var owner = unitOfWork.AccountRepository.GetById(ownerId);
             var model = Mapper.Map<Account, AccountProfileModel>(owner);
             return View(model);
+        }
+
+        public ActionResult ConfirmRegistration(Guid id)
+        {
+            var account = unitOfWork.AccountRepository.GetById(id);
+            account.Activated = true;
+            unitOfWork.AccountRepository.Update(account);
+            unitOfWork.Save();
+            TempData["Success"] = "Registration has been successful";
+            return RedirectToAction("Login");
         }
     
 	}

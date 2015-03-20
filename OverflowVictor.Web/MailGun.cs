@@ -5,13 +5,15 @@ namespace OverflowVictor.Web
 {
     class MailGun
     {
-        public RestResponse SendWelcomeMessage(string email)
+        public RestResponse SendWelcomeMessage(string name,string email,string url)
         {
             var client = ConfigureClient();
             var request = ConfigureMail();
             request.AddParameter("to", email);
-            request.AddParameter("subject", "Hello Victor");
-            request.AddParameter("text", "Congratulations Victor, you register was succesfully completed");
+            request.AddParameter("subject", "Hello "+name);
+            request.AddParameter("text", "Congratulations Victor, you register is almost completed" +
+                                         "To complete registration go to link below!");
+            request.AddParameter("text", url);
             request.Method = Method.POST;
             return (RestResponse)client.Execute(request);
         }
@@ -34,12 +36,12 @@ namespace OverflowVictor.Web
             return client;
         }
 
-        public RestResponse SendRecoveryEmail(string email, string url)
+        public RestResponse SendRecoveryEmail(string name,string email, string url)
         {
             var client = ConfigureClient();
             var request = ConfigureMail();
             request.AddParameter("to", email);
-            request.AddParameter("subject", "Hello Victor");
+            request.AddParameter("subject", "Hello "+name);
             request.AddParameter("text", "Somebody has recently asked to Reset your\n" +
                                          "OverflowVictorAccount, click on the link below\n" +
                                          "to reset your password");

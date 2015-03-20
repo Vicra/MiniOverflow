@@ -26,7 +26,7 @@ namespace OverflowVictor.Web.Models
         [Capital(ErrorMessage = "The password must be between 8 and 16 characters")]
         public string ConfirmPassword { get; set; }
 
-        public Guid OwnerId { get; set; }
+        
 
 
     }
