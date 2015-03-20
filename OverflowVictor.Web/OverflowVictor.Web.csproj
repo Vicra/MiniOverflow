@@ -153,8 +153,6 @@
     <Compile Include="Controllers\TestController.cs" />
     <Compile Include="CustomDataNotations\CapitalAttribute.cs" />
     <Compile Include="CustomDataNotations\LettersAndNumberAttribute.cs" />
-    <Compile Include="CustomDataNotations\MaximumAttribute.cs" />
-    <Compile Include="CustomDataNotations\MinimumAttribute.cs" />
     <Compile Include="CustomDataNotations\NumberAttribute.cs" />
     <Compile Include="CustomDataNotations\RepeatedLettersAttribute.cs" />
     <Compile Include="CustomDataNotations\VocalAttribute.cs" />

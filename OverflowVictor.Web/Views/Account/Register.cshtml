@@ -4,7 +4,7 @@
     ViewBag.Title = "Register";
 }
 
-<h2>Register</h2>
+<h2>Register </h2>
 
 @Html.ValidationMessage("Error")
 @using (Html.BeginForm()) 
@@ -12,7 +12,6 @@
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        @*<h4>AccountRegisterModel</h4>*@
         <hr />
         @Html.ValidationSummary(true)
 
