@@ -16,6 +16,7 @@ namespace OverflowVictor.Web.Controllers
     
     public class AccountController : Controller
     {//changes
+        MailGun mail = new MailGun();
         
         public UnitOfWork unitOfWork = new UnitOfWork();
         public AccountController() { }
@@ -40,6 +41,7 @@ namespace OverflowVictor.Web.Controllers
                     var account = Mapper.Map<AccountRegisterModel, Account>(model);
                     unitOfWork.AccountRepository.Insert(account);
                     unitOfWork.Save();
+                    mail.SendWelcomeMessage(model.Email);
                     /* Add register successful message*/
                     return RedirectToAction("Login");
                 }
@@ -63,8 +65,6 @@ namespace OverflowVictor.Web.Controllers
                 if (account != null)
                 {
                     FormsAuthentication.SetAuthCookie(account.Id.ToString(), false);
-                    MailGun mail = new MailGun();
-                    mail.SendWelcomeMessage(model.Email);
                     return RedirectToAction("Index", "Question");
                 }
                 ViewBag.Message = "Invalid email or password ";
@@ -89,7 +89,6 @@ namespace OverflowVictor.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                MailGun mail = new MailGun();
                 var account = unitOfWork.AccountRepository.GetWithFilter(x => x.Email == model.Email);
                 if (account != null)
                 {
@@ -108,16 +107,17 @@ namespace OverflowVictor.Web.Controllers
         
         public ActionResult ChangePassword(Guid id)
         {
-            return View(new ChangePasswordModel(){OwnerId = id});
+            var model = new ChangePasswordModel() {OwnerId = id};
+            return View(model);
         }
         [HttpPost]
         public ActionResult ChangePassword(ChangePasswordModel model)
         {
+            var account = unitOfWork.AccountRepository.GetById(model.OwnerId);
             if (ModelState.IsValid)
             {
                 if (model.Password == model.ConfirmPassword)
                 {
-                    var account = unitOfWork.AccountRepository.GetById(model.OwnerId);
                     account.Password = model.Password;
                     unitOfWork.AccountRepository.Update(account);
                     unitOfWork.Save();

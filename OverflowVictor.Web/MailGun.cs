@@ -40,6 +40,9 @@ namespace OverflowVictor.Web
             var request = ConfigureMail();
             request.AddParameter("to", email);
             request.AddParameter("subject", "Hello Victor");
+            request.AddParameter("text", "Somebody has recently asked to Reset your\n" +
+                                         "OverflowVictorAccount, click on the link below\n" +
+                                         "to reset your password");
             request.AddParameter("text", url);
             request.Method = Method.POST;
             return (RestResponse)client.Execute(request);
