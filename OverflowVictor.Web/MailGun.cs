@@ -34,14 +34,13 @@ namespace OverflowVictor.Web
             return client;
         }
 
-        public RestResponse SendRecoveryEmail(string email, string recoverPassword, string message)
+        public RestResponse SendRecoveryEmail(string email, string url)
         {
             var client = ConfigureClient();
             var request = ConfigureMail();
             request.AddParameter("to", email);
             request.AddParameter("subject", "Hello Victor");
-            request.AddParameter("text", message);
-            request.AddParameter("text", "this is your password "+recoverPassword);
+            request.AddParameter("text", url);
             request.Method = Method.POST;
             return (RestResponse)client.Execute(request);
         }

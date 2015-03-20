@@ -167,6 +167,7 @@
     <Compile Include="Models\AnswerQuestionModel.cs" />
     <Compile Include="Models\AnswersListModel.cs" />
     <Compile Include="Models\AskQuestionModel.cs" />
+    <Compile Include="Models\ChangePasswordModel.cs" />
     <Compile Include="Models\QuestionDetailModel.cs" />
     <Compile Include="Models\QuestionListModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -210,6 +211,7 @@
     <Content Include="Views\Question\AnswerQuestion.cshtml" />
     <Content Include="Views\Account\GoToProfile.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
+    <Content Include="Views\Account\ChangePassword.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\OverflowVictor.Data\OverflowVictor.Data.csproj">

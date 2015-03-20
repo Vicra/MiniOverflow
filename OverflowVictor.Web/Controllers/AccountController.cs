@@ -40,6 +40,7 @@ namespace OverflowVictor.Web.Controllers
                     var account = Mapper.Map<AccountRegisterModel, Account>(model);
                     unitOfWork.AccountRepository.Insert(account);
                     unitOfWork.Save();
+                    /* Add register successful message*/
                     return RedirectToAction("Login");
                 }
                 ModelState.AddModelError("Error", "Password and Confirm Passsword must be the same");
@@ -86,12 +87,47 @@ namespace OverflowVictor.Web.Controllers
         [HttpPost]
         public ActionResult RecoverPassword(AccountRecoverPasswordModel model)
         {
-            @ViewBag.Message = "Email sent";
-            MailGun mail = new MailGun();
-            var email = unitOfWork.AccountRepository.GetWithFilter(x => x.Email == model.Email);
-            string message = "This is your password";
-            mail.SendRecoveryEmail(email.ToString(),"Recover Password",message);
-            return RedirectToAction("Login");
+            if (ModelState.IsValid)
+            {
+                MailGun mail = new MailGun();
+                var account = unitOfWork.AccountRepository.GetWithFilter(x => x.Email == model.Email);
+                if (account != null)
+                {
+                    var host = HttpContext.Request.Url.Host;
+                    if(host=="localhost")
+                        host = Request.Url.GetLeftPart(UriPartial.Authority);
+                    mail.SendRecoveryEmail(account.Email,host+"/Account/ChangePassword/"+account.Id.ToString());
+
+                    TempData["Success"] = "An email has been sent with instructions to recover your password.";
+                    return View(model);
+                }
+                ModelState.AddModelError("AccountError", "The user with the email:"+model.Email+" does not exist");
+            }
+            return View(model);
+        }
+        
+        public ActionResult ChangePassword(Guid id)
+        {
+            return View(new ChangePasswordModel(){OwnerId = id});
+        }
+        [HttpPost]
+        public ActionResult ChangePassword(ChangePasswordModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                if (model.Password == model.ConfirmPassword)
+                {
+                    var account = unitOfWork.AccountRepository.GetById(model.OwnerId);
+                    account.Password = model.Password;
+                    unitOfWork.AccountRepository.Update(account);
+                    unitOfWork.Save();
+                    /*Add change password  successful message*/
+                    return RedirectToAction("Login");
+                }
+                ModelState.AddModelError("Error", "Password and Confirm Passsword must be the same");
+            }
+            return View(model);
+
         }
         public ActionResult GoToProfile(Guid ownerId)
         {

@@ -5,7 +5,12 @@
 }
 
 <h2>Login</h2>
-
+@if (TempData["Success"] != null)
+{
+    <div class="bg-success" style="width: 150px;height: 150px" >
+        <p><strong>Success:</strong> @TempData["Success"].ToString()</p>
+    </div>
+}
 
 @using (Html.BeginForm()) 
 {
