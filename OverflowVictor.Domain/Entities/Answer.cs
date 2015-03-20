@@ -18,5 +18,6 @@ namespace OverflowVictor.Domain.Entities
         public Guid QuestionId { get; set; }
         public bool Correct { get; set; }
         public ICollection<Guid> Users { get; set; }
+        
     }
 }

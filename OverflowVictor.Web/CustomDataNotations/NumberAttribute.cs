@@ -7,9 +7,13 @@ namespace OverflowVictor.Web.CustomDataNotations
     {
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
-            var text = value.ToString();
-            var hasNumber = text.Any(char.IsDigit);
-            return hasNumber ? ValidationResult.Success : new ValidationResult("Must contain a number");
+            if (value != null)
+            {
+                var text = value.ToString();
+                var hasNumber = text.Any(char.IsDigit);
+                return hasNumber ? ValidationResult.Success : new ValidationResult("Must contain a number");
+            }
+            return new ValidationResult("required fiels");
         }
     }
 }

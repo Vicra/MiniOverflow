@@ -6,13 +6,17 @@ namespace OverflowVictor.Web.CustomDataNotations
     {
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
-            var text = value.ToString().ToCharArray();
-            for (var i = 1; i < text.Length; i++)
+            if (value != null)
             {
-                if(text[i-1] == text[i])
-                    return new ValidationResult("Cannot contain repeted letters");
+                var text = value.ToString().ToCharArray();
+                for (var i = 1; i < text.Length; i++)
+                {
+                    if (text[i - 1] == text[i])
+                        return new ValidationResult("Cannot contain repeted letters");
+                }
+                return ValidationResult.Success;
             }
-            return ValidationResult.Success;
+            return new ValidationResult("This field is required");
         }
     }
 }

@@ -11,11 +11,15 @@ namespace OverflowVictor.Web.CustomDataNotations
     {
         public override bool IsValid(object value)
         {
-            var stringValue = (string)value;
-            var string2 = stringValue.ToLower();
-            if (stringValue.Equals(string2))
-                return false;
-            return true;
+            if(value!=null)
+            {
+                var stringValue = (string) value;
+                var string2 = stringValue.ToLower();
+                if (stringValue.Equals(string2))
+                    return false;
+                return true;
+            }
+            return false;
         }
     }
 }

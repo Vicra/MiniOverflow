@@ -29,7 +29,7 @@ namespace OverflowVictor.Web.Controllers
         {
             return View(new AccountRegisterModel());
         }
-        [System.Web.Mvc.HttpPost]
+        [HttpPost]
         public ActionResult Register(AccountRegisterModel model)
         {
             if (ModelState.IsValid)
@@ -42,6 +42,7 @@ namespace OverflowVictor.Web.Controllers
                     unitOfWork.Save();
                     return RedirectToAction("Login");
                 }
+                ModelState.AddModelError("Error", "Password and Confirm Passsword must be the same");
             }
             return View(model);
         }
@@ -89,7 +90,7 @@ namespace OverflowVictor.Web.Controllers
             MailGun mail = new MailGun();
             var email = unitOfWork.AccountRepository.GetWithFilter(x => x.Email == model.Email);
             string message = "This is your password";
-            mail.SendRecoveryEmail(model.Email,"Recover Password",message);
+            mail.SendRecoveryEmail(email.ToString(),"Recover Password",message);
             return RedirectToAction("Login");
         }
         public ActionResult GoToProfile(Guid ownerId)
@@ -98,6 +99,7 @@ namespace OverflowVictor.Web.Controllers
             var owner = unitOfWork.AccountRepository.GetById(ownerId);
             var model = Mapper.Map<Account, AccountProfileModel>(owner);
             return View(model);
-        }   
+        }
+    
 	}
 }

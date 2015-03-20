@@ -13,6 +13,7 @@ namespace OverflowVictor.Data.Migrations
                     {
                         Id = c.Guid(nullable: false),
                         Name = c.String(),
+                        LastName = c.String(),
                         Password = c.String(),
                         Email = c.String(),
                     })

@@ -13,7 +13,7 @@ namespace OverflowVictor.Data.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201503132232099_Initial"; }
+            get { return "201503191821103_Initial"; }
         }
         
         string IMigrationMetadata.Source

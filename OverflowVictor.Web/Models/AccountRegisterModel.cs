@@ -6,13 +6,11 @@ namespace OverflowVictor.Web.Models
     public class AccountRegisterModel 
     {
         [Required]
-        [Minimum(2)]
-        [Maximum(50)]
+        [StringLength(50,ErrorMessage = "eroor",MinimumLength = 2)]
         public string Name { get; set; }
 
         [Required]
-        [Minimum(2)]
-        [Maximum(50)]
+        [StringLength(50, ErrorMessage = "eroor", MinimumLength = 2)]
         public string LastName { get; set; }
 
 
@@ -22,8 +20,7 @@ namespace OverflowVictor.Web.Models
 
         [Required]
         [DataType(DataType.Password)]
-        [Minimum(8)]
-        [Maximum(16)]
+        [StringLength(16, ErrorMessage = "eroor", MinimumLength = 8)]
         [Vocal]
         [Number]
         [RepeatedLetters]
@@ -33,12 +30,12 @@ namespace OverflowVictor.Web.Models
 
         [Required]
         [DataType(DataType.Password)]
-        [Minimum(8)]
-        [Maximum(16)]
+        [StringLength(16, ErrorMessage = "eroor", MinimumLength = 8)]
         [Vocal]
         [Number]
         [RepeatedLetters]
         [LettersAndNumber]
+        [Capital(ErrorMessage = "Must contain a capital letter")]
         public string ConfirmPassword { get; set; }
     }
 }

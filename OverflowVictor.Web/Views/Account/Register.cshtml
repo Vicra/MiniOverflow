@@ -6,13 +6,13 @@
 
 <h2>Register</h2>
 
-
+@Html.ValidationMessage("Error")
 @using (Html.BeginForm()) 
 {
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>AccountRegisterModel</h4>
+        @*<h4>AccountRegisterModel</h4>*@
         <hr />
         @Html.ValidationSummary(true)
 
@@ -58,7 +58,7 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="Register" class="btn btn-default" />
             </div>
         </div>
     </div>
