@@ -32,7 +32,7 @@
             <TextBlock HorizontalAlignment="Left" Margin="36,119,0,0" TextWrapping="Wrap" Text="Password" VerticalAlignment="Top"/>
             <PasswordBox x:Name="Password" HorizontalAlignment="Left" Margin="152,101,0,0" VerticalAlignment="Top" Width="278"/>
             <TextBox x:Name="Email" HorizontalAlignment="Left" Height="72" Margin="152,13,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="278"/>
-            <Button x:Name="btnLogin" Content="Login" HorizontalAlignment="Left" Margin="178,195,0,0" VerticalAlignment="Top" Width="212"/>
+            <Button x:Name="BtnLogin" Content="Login" HorizontalAlignment="Left" Margin="178,195,0,0" VerticalAlignment="Top" Width="212"/>
 
         </Grid>
     </Grid>

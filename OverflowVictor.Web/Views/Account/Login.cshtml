@@ -11,6 +11,12 @@
         <p><strong>Success:</strong> @TempData["Success"].ToString()</p>
     </div>
 }
+@if (TempData["Error"] != null)
+{
+    <div class="bg-danger" style="width: 550px;height: 40px">
+        <p><strong>Error:</strong> @TempData["Error"].ToString()</p>
+    </div>
+}
 
 @using (Html.BeginForm()) 
 {

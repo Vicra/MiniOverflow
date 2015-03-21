@@ -36,10 +36,10 @@ namespace OverflowVictor.Web.Controllers
             if (ModelState.IsValid)
             {
                 var validateEmailAccount = unitOfWork.AccountRepository.GetWithFilter(x=>x.Email==model.Email);
-                if (validateEmailAccount == null)
+                if (validateEmailAccount != null)
                 {
-                    TempData["Error"] = "mensaje de error";
-                    return View(new AccountRegisterModel());
+                    TempData["Error"] = "El usuarion con el correo electronico: "+model.Email+" ya existe";
+                    return View(model);
                 }
                 if (model.Password == model.ConfirmPassword)
                 {
@@ -73,14 +73,19 @@ namespace OverflowVictor.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var context = new OverflowVictorContext();
                 var account = unitOfWork.AccountRepository.GetWithFilter(x => x.Email == model.Email && x.Password == model.Password);
+                
                 if (account != null)
                 {
+                    if (account.Activated==false)
+                    {
+                        TempData["Error"] = "Account is not confirmed yet, please confirm your account";
+                        return View(new AccountLoginModel());
+                    }
                     FormsAuthentication.SetAuthCookie(account.Id.ToString(), false);
                     return RedirectToAction("Index", "Question");
                 }
-                ViewBag.Message = "Invalid email or password ";
+                TempData["Error"] = "Email and/or password invalid";
             }
             
             return View(new AccountLoginModel());
