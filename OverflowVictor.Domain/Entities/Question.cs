@@ -27,6 +27,9 @@ namespace OverflowVictor.Domain.Entities
         public DateTime CreationDate { get; set; }
         public DateTime ModificationDate { get; set; }
         public bool HasCorrectAnswer { get; set; }
+        public int Views { get; set; }
+        public int AnswerCount { get; set; }
+
 
     }
 }

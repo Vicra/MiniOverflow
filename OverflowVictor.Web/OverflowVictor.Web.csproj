@@ -148,6 +148,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CommentController.cs" />
     <Compile Include="Controllers\LoginAttribute.cs" />
     <Compile Include="Controllers\QuestionController.cs" />
     <Compile Include="Controllers\TestController.cs" />
@@ -168,6 +169,7 @@
     <Compile Include="Models\AnswersListModel.cs" />
     <Compile Include="Models\AskQuestionModel.cs" />
     <Compile Include="Models\ChangePasswordModel.cs" />
+    <Compile Include="Models\CommentModel.cs" />
     <Compile Include="Models\QuestionDetailModel.cs" />
     <Compile Include="Models\QuestionListModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -212,6 +214,9 @@
     <Content Include="Views\Account\GoToProfile.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Account\ChangePassword.cshtml" />
+    <Content Include="Views\Comment\AnswerComments.cshtml" />
+    <Content Include="Views\Comment\AnswersComments.cshtml" />
+    <Content Include="Views\Account\EditProfile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\OverflowVictor.Data\OverflowVictor.Data.csproj">

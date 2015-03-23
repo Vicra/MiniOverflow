@@ -1,4 +1,6 @@
-﻿namespace OverflowVictor.Web.Models
+﻿using System;
+
+namespace OverflowVictor.Web.Models
 {
     public class AccountProfileModel
     {
@@ -9,5 +11,9 @@
         public int Reputation { get; set; }
         public int Questions { get; set; }
         public int Answers { get; set; }
+        public DateTime RegisterDate { get; set; }
+        public int Views { get; set; }
+        public DateTime LastSeen { get; set; }
+
     }
 }

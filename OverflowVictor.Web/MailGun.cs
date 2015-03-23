@@ -49,5 +49,18 @@ namespace OverflowVictor.Web
             request.Method = Method.POST;
             return (RestResponse)client.Execute(request);
         }
+
+        public RestResponse SendLoginWarningMessage(string name, string email)
+        {
+            var client = ConfigureClient();
+            var request = ConfigureMail();
+            request.AddParameter("to", email);
+            request.AddParameter("subject", "Hello " + name);
+            request.AddParameter("text", "Alert, someone is trying to login with your email" +
+                                         "\nwith incorrect information");
+           
+            request.Method = Method.POST;
+            return (RestResponse)client.Execute(request);
+        }
     }
 }

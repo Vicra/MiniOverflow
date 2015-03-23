@@ -53,11 +53,11 @@ namespace OverflowVictor.Web.Controllers
         {
             Mapper.CreateMap<Question, QuestionDetailModel>();
             var question = unitOfWork.QuestionRepository.GetById(questionId);
-            var context = new OverflowVictorContext();
-            var quest = context.Questions.Find(questionId);
-            
+            question.Views += 1;
             var owner = unitOfWork.AccountRepository.GetById(question.Owner);
-            var model = Mapper.Map<Question, QuestionDetailModel>(quest);
+            var model = Mapper.Map<Question, QuestionDetailModel>(question);
+            unitOfWork.QuestionRepository.Update(question);
+            unitOfWork.Save();
             model.OwnerEmail = owner.Email;
             return View(model);
         }

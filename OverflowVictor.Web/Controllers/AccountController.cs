@@ -17,10 +17,11 @@ namespace OverflowVictor.Web.Controllers
     public class AccountController : Controller
     {//changes
         MailGun mail = new MailGun();
-        
-        public UnitOfWork unitOfWork = new UnitOfWork();
-        public AccountController() { }
         readonly IMappingEngine _mappingEngine;
+        public UnitOfWork unitOfWork = new UnitOfWork();
+
+        public AccountController() { }
+        
 
         public AccountController(IMappingEngine mappingEngine)
         {
@@ -71,23 +72,37 @@ namespace OverflowVictor.Web.Controllers
         [HttpPost]
         public ActionResult Login(AccountLoginModel model)
         {
-            if (ModelState.IsValid)
+            if (model.Email!=null && model.Password!=null)
             {
-                var account = unitOfWork.AccountRepository.GetWithFilter(x => x.Email == model.Email && x.Password == model.Password);
-                
-                if (account != null)
+                var a = model.LoginAttempts;
+                var validateEmail = unitOfWork.AccountRepository.GetWithFilter(x => x.Email == model.Email);
+                //si el correo existe
+                if (validateEmail != null)
                 {
-                    if (account.Activated==false)
+                    //si la contraseña es correcta
+                    if (validateEmail.Password == model.Password)
                     {
-                        TempData["Error"] = "Account is not confirmed yet, please confirm your account";
-                        return View(new AccountLoginModel());
+                        if (validateEmail.Activated == false)
+                        {
+                            TempData["Error"] = "Account is not confirmed yet, please confirm your account";
+                            return View(new AccountLoginModel());
+                        }
+                        FormsAuthentication.SetAuthCookie(validateEmail.Id.ToString(), false);
+                        return RedirectToAction("Index", "Question");
                     }
-                    FormsAuthentication.SetAuthCookie(account.Id.ToString(), false);
-                    return RedirectToAction("Index", "Question");
+                    //si la contraseña es incorrecta
+                    mail.SendLoginWarningMessage(validateEmail.Name, validateEmail.Email);
+                    if (model.LoginAttempts >= 3)
+                    {
+                        model.CaptchaActive = true;
+                        model.LoginAttempts = 0;
+                    }
+                    model.LoginAttempts += 1;
+                    TempData["Error"] = "password invalid";
+                    return View(model);
                 }
                 TempData["Error"] = "Email and/or password invalid";
             }
-            
             return View(new AccountLoginModel());
         }
 
@@ -164,6 +179,7 @@ namespace OverflowVictor.Web.Controllers
             TempData["Success"] = "Registration has been successful";
             return RedirectToAction("Login");
         }
-    
+
+        
 	}
 }
