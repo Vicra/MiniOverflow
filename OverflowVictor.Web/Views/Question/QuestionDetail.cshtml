@@ -4,39 +4,29 @@
     ViewBag.Title = "QuestionDetail";
 }
 
-<h2>Question Detail</h2>
+<h3>@Model.Title</h3>
 
 <div>
 	<hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.ActionLink("+", "VoteUpQuestion", "Question", new { questId = Model.Id }, new { @class = "link-button" }) |
-            @Html.ActionLink("-", "VoteDownQuestion", "Question", new { questId = Model.Id }, new { @class = "link-button" })<br />
+           @using (Html.BeginForm("VoteUpQuestion", "Question", new { questId = Model.Id }))
+            {
+                <button class="btn btn-default"><span class="glyphicon glyphicon-thumbs-up"></span></button>
+            }
+            <p></p>
+            <p style="text-align: center;margin-left: 75%">@Model.Votes</p>
+            @using (Html.BeginForm("VoteDownQuestion", "Question", new { questId = Model.Id }))
+            {
+                <button class="btn btn-default"><span class="glyphicon glyphicon-thumbs-down"></span></button>
+            }
+            <br/>
             
-            @Html.DisplayNameFor(model => model.Votes)
         </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Votes)
-            @Html.ActionLink("-", "VoteDownQuestion", "Question", null, new { @class = "link-button" })<br />
             
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
-
         <dd>
-            @Html.DisplayFor(model => model.Title) 
+            <h4>@Model.Description</h4>
         </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-
         <dt>
             @Html.DisplayNameFor(model => model.OwnerEmail)
         </dt>
@@ -44,9 +34,6 @@
         <dd>
             @Html.DisplayFor(model => model.OwnerEmail)
         </dd>
-
-
-
         <dt>
             @Html.DisplayNameFor(model => model.CreationDate)
         </dt>

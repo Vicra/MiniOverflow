@@ -48,29 +48,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IRepository.cs" />
-    <Compile Include="Migrations\201503191821103_Initial.cs" />
-    <Compile Include="Migrations\201503191821103_Initial.Designer.cs">
-      <DependentUpon>201503191821103_Initial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201503201343342_AccountConfirmation.cs" />
-    <Compile Include="Migrations\201503201343342_AccountConfirmation.Designer.cs">
-      <DependentUpon>201503201343342_AccountConfirmation.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201503220751438_Comments.cs" />
-    <Compile Include="Migrations\201503220751438_Comments.Designer.cs">
-      <DependentUpon>201503220751438_Comments.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201503220754280_Commentszx.cs" />
-    <Compile Include="Migrations\201503220754280_Commentszx.Designer.cs">
-      <DependentUpon>201503220754280_Commentszx.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201503230114001_QuestionList.cs" />
-    <Compile Include="Migrations\201503230114001_QuestionList.Designer.cs">
-      <DependentUpon>201503230114001_QuestionList.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201503230327213_Profile.cs" />
-    <Compile Include="Migrations\201503230327213_Profile.Designer.cs">
-      <DependentUpon>201503230327213_Profile.cs</DependentUpon>
+    <Compile Include="Migrations\201503252210476_Initial.cs" />
+    <Compile Include="Migrations\201503252210476_Initial.Designer.cs">
+      <DependentUpon>201503252210476_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="OverflowVictorContext.cs" />
@@ -91,23 +71,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201503191821103_Initial.resx">
-      <DependentUpon>201503191821103_Initial.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201503201343342_AccountConfirmation.resx">
-      <DependentUpon>201503201343342_AccountConfirmation.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201503220751438_Comments.resx">
-      <DependentUpon>201503220751438_Comments.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201503220754280_Commentszx.resx">
-      <DependentUpon>201503220754280_Commentszx.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201503230114001_QuestionList.resx">
-      <DependentUpon>201503230114001_QuestionList.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201503230327213_Profile.resx">
-      <DependentUpon>201503230327213_Profile.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201503252210476_Initial.resx">
+      <DependentUpon>201503252210476_Initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

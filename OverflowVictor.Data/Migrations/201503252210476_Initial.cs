@@ -16,6 +16,20 @@ namespace OverflowVictor.Data.Migrations
                         LastName = c.String(),
                         Password = c.String(),
                         Email = c.String(),
+                        Activated = c.Boolean(nullable: false),
+                        RegisterDate = c.DateTime(nullable: false),
+                        Views = c.Int(nullable: false),
+                        LastSeen = c.DateTime(nullable: false),
+                    })
+                .PrimaryKey(t => t.Id);
+            
+            CreateTable(
+                "dbo.AnswerComments",
+                c => new
+                    {
+                        Id = c.Guid(nullable: false),
+                        AccountId = c.Guid(nullable: false),
+                        AnswerrId = c.Guid(nullable: false),
                     })
                 .PrimaryKey(t => t.Id);
             
@@ -30,12 +44,21 @@ namespace OverflowVictor.Data.Migrations
                         AccountId = c.Guid(nullable: false),
                         QuestionId = c.Guid(nullable: false),
                         Correct = c.Boolean(nullable: false),
+                        Views = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Accounts", t => t.AccountId, cascadeDelete: true)
                 .ForeignKey("dbo.Questions", t => t.QuestionId, cascadeDelete: true)
-                .Index(t => t.AccountId)
                 .Index(t => t.QuestionId);
+            
+            CreateTable(
+                "dbo.QuestionComments",
+                c => new
+                    {
+                        Id = c.Guid(nullable: false),
+                        AccountId = c.Guid(nullable: false),
+                        QuestionId = c.Guid(nullable: false),
+                    })
+                .PrimaryKey(t => t.Id);
             
             CreateTable(
                 "dbo.Questions",
@@ -49,24 +72,21 @@ namespace OverflowVictor.Data.Migrations
                         CreationDate = c.DateTime(nullable: false),
                         ModificationDate = c.DateTime(nullable: false),
                         HasCorrectAnswer = c.Boolean(nullable: false),
-                        Account_Id = c.Guid(),
+                        Views = c.Int(nullable: false),
+                        AnswerCount = c.Int(nullable: false),
                     })
-                .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Accounts", t => t.Account_Id)
-                .Index(t => t.Account_Id);
+                .PrimaryKey(t => t.Id);
             
         }
         
         public override void Down()
         {
-            DropForeignKey("dbo.Questions", "Account_Id", "dbo.Accounts");
             DropForeignKey("dbo.Answers", "QuestionId", "dbo.Questions");
-            DropForeignKey("dbo.Answers", "AccountId", "dbo.Accounts");
-            DropIndex("dbo.Questions", new[] { "Account_Id" });
             DropIndex("dbo.Answers", new[] { "QuestionId" });
-            DropIndex("dbo.Answers", new[] { "AccountId" });
             DropTable("dbo.Questions");
+            DropTable("dbo.QuestionComments");
             DropTable("dbo.Answers");
+            DropTable("dbo.AnswerComments");
             DropTable("dbo.Accounts");
         }
     }

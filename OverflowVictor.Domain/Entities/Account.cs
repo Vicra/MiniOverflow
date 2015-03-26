@@ -15,6 +15,7 @@ namespace OverflowVictor.Domain.Entities
             Id = Guid.NewGuid();
             Activated = false;
             RegisterDate= DateTime.Now;
+            LastSeen = DateTime.Now;
         }
 
         public string Name { get; set; }

@@ -1,15 +1,10 @@
 ﻿@model OverflowVictor.Web.Models.AccountLoginModel
-
-@functions {
-    private bool _captchaActive=false;
-}
-
 @{
     ViewBag.Title = "Login";
 }
 <head>
     <title>Login</title>
-    <script src="https://www.google.com/recaptcha/api.js"></script>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 
 <h2>Login</h2>
@@ -49,10 +44,13 @@
                 @Html.ValidationMessageFor(model => model.Password)
             </div>
         </div>
-        @*@if (Model.LoginAttempts==3)
-        {*@
+       @if (@Model.CaptchaActivated)
+       {
            <div class="g-recaptcha" data-sitekey="6LdM3gMTAAAAAPGSfXnBUYz35l5YsRUHbTzGhp3n"></div>
-        @*}*@
+            @Html.ValidationMessage("captcha")
+       }
+           
+        
         
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">

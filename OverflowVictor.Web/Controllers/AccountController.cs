@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Net.Mail;
 using System.Web;
@@ -20,7 +21,10 @@ namespace OverflowVictor.Web.Controllers
         readonly IMappingEngine _mappingEngine;
         public UnitOfWork unitOfWork = new UnitOfWork();
 
-        public AccountController() { }
+
+        public AccountController()
+        {
+        }
         
 
         public AccountController(IMappingEngine mappingEngine)
@@ -66,6 +70,8 @@ namespace OverflowVictor.Web.Controllers
 
         public ActionResult Login()
         {
+            int n = 0;
+            Session["Attempts"] = n;
             return View(new AccountLoginModel());
         }
 
@@ -74,7 +80,7 @@ namespace OverflowVictor.Web.Controllers
         {
             if (model.Email!=null && model.Password!=null)
             {
-                var a = model.LoginAttempts;
+                
                 var validateEmail = unitOfWork.AccountRepository.GetWithFilter(x => x.Email == model.Email);
                 //si el correo existe
                 if (validateEmail != null)
@@ -91,13 +97,16 @@ namespace OverflowVictor.Web.Controllers
                         return RedirectToAction("Index", "Question");
                     }
                     //si la contraseña es incorrecta
+                    
                     mail.SendLoginWarningMessage(validateEmail.Name, validateEmail.Email);
-                    if (model.LoginAttempts >= 3)
+                    int ses = (int)(Session["Attempts"]);
+                    ses += 1;
+                    Session["Attempts"] = ses;
+                    if (ses == 3)
                     {
-                        model.CaptchaActive = true;
-                        model.LoginAttempts = 0;
+                        Session["Attempts"] = 0;
+                        model.CaptchaActivated = true;
                     }
-                    model.LoginAttempts += 1;
                     TempData["Error"] = "password invalid";
                     return View(model);
                 }
@@ -166,7 +175,10 @@ namespace OverflowVictor.Web.Controllers
         {
             Mapper.CreateMap<Account, AccountProfileModel>();
             var owner = unitOfWork.AccountRepository.GetById(ownerId);
-            var model = Mapper.Map<Account, AccountProfileModel>(owner);
+            owner.Views +=1;
+            unitOfWork.AccountRepository.Update(owner);
+            var o = unitOfWork.AccountRepository.GetById(ownerId);
+            var model = Mapper.Map<Account, AccountProfileModel>(o);
             return View(model);
         }
 

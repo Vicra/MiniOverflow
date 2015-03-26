@@ -11,7 +11,7 @@ namespace OverflowVictor.Web
             var request = ConfigureMail();
             request.AddParameter("to", email);
             request.AddParameter("subject", "Hello "+name);
-            request.AddParameter("text", "Congratulations Victor, you register is almost completed" +
+            request.AddParameter("text", "Congratulations , you register is almost completed" +
                                          "To complete registration go to link below!");
             request.AddParameter("text", url);
             request.Method = Method.POST;
