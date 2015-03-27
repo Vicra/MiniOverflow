@@ -48,9 +48,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IRepository.cs" />
-    <Compile Include="Migrations\201503252210476_Initial.cs" />
-    <Compile Include="Migrations\201503252210476_Initial.Designer.cs">
-      <DependentUpon>201503252210476_Initial.cs</DependentUpon>
+    <Compile Include="Migrations\201503262355053_Initial.cs" />
+    <Compile Include="Migrations\201503262355053_Initial.Designer.cs">
+      <DependentUpon>201503262355053_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="OverflowVictorContext.cs" />
@@ -71,8 +71,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201503252210476_Initial.resx">
-      <DependentUpon>201503252210476_Initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201503262355053_Initial.resx">
+      <DependentUpon>201503262355053_Initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
