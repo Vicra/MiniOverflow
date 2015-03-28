@@ -25,30 +25,29 @@
 </div>
 <br/>
 <hr/>
-    
 
 <ul>
     @foreach (var item in Model)
     {
         <li>
-            <div  >
-                <div class="block" onclick="window.location.href = '/Question/QuestionDetail/?questionId=' + '@item.Id'">
+            <div >
+                <div class="block" onclick="window.location.href = '/Question/QuestionDetail/?questionId=' + '@item.Id' ">
                     <div><span title="@item.Votes votes">@item.Votes</span></div>
                     <div>votes</div>
                 </div>
 
-                <div class="block" onclick="window.location.href = '/Question/QuestionDetail/?questionId=' + '@item.Id'">
+                <div class="block" onclick="window.location.href = '/Question/QuestionDetail/?questionId=' + '@item.Id' ">
                     <div class="block"><span title="@item.AnswerCount answers">@item.AnswerCount </span></div>
                     <div>answers</div>
                 </div>
-                <div class="block" onclick="window.location.href = '/Question/QuestionDetail/?questionId=' + '@item.Id'">
+                <div class="block" onclick="window.location.href = '/Question/QuestionDetail/?questionId=' + '@item.Id' ">
                     <div class="block"><span title="@item.Views views">@item.Views</span></div>
                     <div>views</div>
                 </div>
                 <blockquote style="display: inline-block">
-                    @Html.ActionLink(@item.Title,"QuestionDetail","Question",new{questionId=item.Id},null)
-                    <footer>Asked @item.ModificationDate ago by
-                    @Html.ActionLink(@item.OwnerName, "GoToProfile", "Account", new { ownerId = item.OwnerId }, null)    
+                    @Html.ActionLink(@item.Title, "QuestionDetail", "Question", new {questionId = item.Id,ownerId=item.OwnerId}, null)
+                    <footer>Asked @item.Date by
+                        @Html.ActionLink(@item.OwnerName, "GoToProfile", "Account", new {ownerId = item.OwnerId}, null)
                     </footer>
                 </blockquote>
             </div>

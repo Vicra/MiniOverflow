@@ -7,6 +7,7 @@ using System.Web.Routing;
 using AutoMapper;
 using OverflowVictor.Data;
 using OverflowVictor.Domain.Entities;
+using OverflowVictor.Web.MashUps;
 using OverflowVictor.Web.Models;
 
 namespace OverflowVictor.Web.Controllers
@@ -22,9 +23,12 @@ namespace OverflowVictor.Web.Controllers
             var questions = unitOfWork.QuestionRepository.Get();
             var models = new List<QuestionListModel>();
             Mapper.CreateMap<Question, QuestionListModel>().ReverseMap();
+            TimeCalculator calculator=new TimeCalculator();
             foreach (var q in questions)
             {
+                var date=calculator.GetTime(q.CreationDate);
                 var model = Mapper.Map<Question, QuestionListModel>(q);
+                model.Date = date;
                 model.OwnerId = q.Owner;
                 model.OwnerName = unitOfWork.AccountRepository.GetById(model.OwnerId).Name;
                 models.Add(model); 
@@ -49,13 +53,17 @@ namespace OverflowVictor.Web.Controllers
         }
 
         [AllowAnonymous]
-        public ActionResult QuestionDetail(Guid questionId)
+        public ActionResult QuestionDetail(Guid questionId,Guid ownerId)
         {
             Mapper.CreateMap<Question, QuestionDetailModel>();
             var question = unitOfWork.QuestionRepository.GetById(questionId);
             question.Views += 1;
             var owner = unitOfWork.AccountRepository.GetById(question.Owner);
             var model = Mapper.Map<Question, QuestionDetailModel>(question);
+            TimeCalculator calculator=new TimeCalculator();
+            string date = calculator.GetTime(question.CreationDate);
+            model.Date = date;
+            model.OwnerId = ownerId;
             unitOfWork.QuestionRepository.Update(question);
             unitOfWork.Save();
             model.OwnerEmail = owner.Email;

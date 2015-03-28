@@ -160,7 +160,8 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="MailGun.cs" />
+    <Compile Include="MashUps\MailGun.cs" />
+    <Compile Include="MashUps\TimeCalculator.cs" />
     <Compile Include="Models\AccountLoginModel.cs" />
     <Compile Include="Models\AccountProfileModel.cs" />
     <Compile Include="Models\AccountRecoverPasswordModel.cs" />
@@ -208,7 +209,6 @@
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\RecoverPassword.cshtml" />
     <Content Include="Views\Question\Index.cshtml" />
-    <Content Include="Views\Question\AnswerList.cshtml" />
     <Content Include="Views\Question\AskQuestion.cshtml" />
     <Content Include="Views\Question\QuestionDetail.cshtml" />
     <Content Include="Views\Question\AnswerQuestion.cshtml" />
@@ -218,6 +218,7 @@
     <Content Include="Views\Comment\AnswerComments.cshtml" />
     <Content Include="Views\Comment\AnswersComments.cshtml" />
     <Content Include="Views\Account\EditProfile.cshtml" />
+    <Content Include="Views\Question\AnswerList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\OverflowVictor.Data\OverflowVictor.Data.csproj">

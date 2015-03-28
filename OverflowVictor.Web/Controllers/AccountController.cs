@@ -9,6 +9,7 @@ using System.Web.Security;
 using AutoMapper;
 using OverflowVictor.Data;
 using OverflowVictor.Domain.Entities;
+using OverflowVictor.Web.MashUps;
 using OverflowVictor.Web.Models;
 
 

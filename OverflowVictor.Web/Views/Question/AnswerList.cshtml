@@ -1,23 +1,10 @@
-﻿@using System.Diagnostics.Eventing.Reader
-@model IEnumerable<OverflowVictor.Web.Models.AnswersListModel>
-
-@{
-    ViewBag.Title = "AnswerList";
-}
-
-<h2>Answer List</h2>
-
+﻿@model IEnumerable<OverflowVictor.Web.Models.AnswersListModel>
+<br/>
 <p>
-    @Html.ActionLink("Create New", "AnswerQuestion", "Question")
+    @Html.ActionLink("Create New", "Create")
 </p>
 <table class="table">
     <tr>
-        <th>
-            
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Votes)
-        </th>
         <th>
             @Html.DisplayNameFor(model => model.Title)
         </th>
@@ -25,10 +12,19 @@
             @Html.DisplayNameFor(model => model.Description)
         </th>
         <th>
+            @Html.DisplayNameFor(model => model.Votes)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AccountId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.QuestionId)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.OwnerName)
         </th>
         <th>
-            @*@Html.DisplayNameFor(model => model.QuestionId)*@
+            @Html.DisplayNameFor(model => model.Correct)
         </th>
         <th></th>
     </tr>
@@ -36,44 +32,30 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @using (Html.BeginForm("SelectCorrectAnswer", "Question", item))
-            {
-                if (item.Correct)
-                {
-                    <button type="button" class="btn btn-success">Correct</button>
-                }
-                else
-                {
-                    <button class="btn btn-default" type="submit">Correct</button>
-                }
-            }
-            
-        </td>
-        <td>
-            @Html.ActionLink("+", "VoteUpAnswer", "Question", new {answerId = item.Id}, new {@class = "link-button"}) |
-            @Html.ActionLink("-", "VoteDownAnswer", "Question", new {answerId = item.Id}, new {@class = "link-button"})<br/>
-
-            @Html.DisplayFor(modelItem => item.Votes)
-        </td>
-        <td>
             @Html.DisplayFor(modelItem => item.Title)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Description)
         </td>
-
         <td>
-            @Html.ActionLink(item.OwnerName, "GoToProfile", "Account", new {ownerId = item.AccountId}, null)
+            @Html.DisplayFor(modelItem => item.Votes)
         </td>
         <td>
-
-            @*@Html.DisplayFor(modelItem => item.QuestionId)*@
+            @Html.DisplayFor(modelItem => item.AccountId)
         </td>
         <td>
-            @*
-            @Html.ActionLink("Edit", "Edit", new {/* id=item.PrimaryKey */}) |
-            @Html.ActionLink("Delete", "Delete", new {/* id=item.PrimaryKey */})
-            *@
+            @Html.DisplayFor(modelItem => item.QuestionId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.OwnerName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Correct)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
         </td>
     </tr>
 }

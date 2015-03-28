@@ -1,7 +1,7 @@
 using System;
 using RestSharp;
 
-namespace OverflowVictor.Web
+namespace OverflowVictor.Web.MashUps
 {
     class MailGun
     {
