@@ -11,19 +11,19 @@
     </style>
 </head>
 <br/>
-<h3>Answers</h3>
+<h4>Answers</h4>
 <hr/>
 <ul>
     @foreach (var item in Model)
     {
         <li>
             <div class="block" style="margin-left: 5%">
-                @using (Html.BeginForm("VoteUpAnswer", "Question", new { answerId = item.Id  }))
+                @using (Html.BeginForm("VoteUpAnswer", "Question", new {answerId = item.Id}))
                 {
                     <button class="btn btn-xs btn-default"><span class="glyphicon glyphicon-thumbs-up"></span></button>
                 }
                 <label style="text-align: center; margin-left: 15%">@item.Votes </label>
-                @using (Html.BeginForm("VoteDownAnswer", "Question", new { answerId = item.Id }))
+                @using (Html.BeginForm("VoteDownAnswer", "Question", new {answerId = item.Id}))
                 {
                     <button class="btn btn-xs btn-default"><span class="glyphicon glyphicon-thumbs-down"></span></button>
                 }
@@ -33,13 +33,19 @@
                     @item.Description
                 </h4>
             </div>
-            <div style="margin-left: 25%; background-color: sienna; width: 200px;">
+            <div style="margin-left: 25%; background-color: lightslategray; color: black; width: 100px;">
                 Asked @item.Date
                 <br/>by
                 @Html.ActionLink(item.OwnerName, "GoToProfile", "Account", new {ownerId = item.AccountId}, null)
                 <br/>
                 Views @item.Views
             </div>
+            <hr/>
         </li>
     }
 </ul>
+<h4>Your Answer</h4>
+@using (Html.BeginForm("AnswerQuestion", "Question"))
+{
+    @Html.TextAreaFor(model=>model.GetEnumerator().Current.Description)
+}

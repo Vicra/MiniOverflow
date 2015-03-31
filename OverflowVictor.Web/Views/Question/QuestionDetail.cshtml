@@ -35,11 +35,9 @@
     </div>
 </div>
 <div>
-    @*@{Html.RenderPartial("AnswerList",new{models=Model.});}*@
+    @{Html.RenderAction("AnswerList","Question",new{models=Model.Answers});}
 
 </div>
 <p>
-    @Html.ActionLink("Answer Question", "AnswerQuestion", new { questionId = Model.Id }, null) |
-    @Html.ActionLink("All Answers ", "AnswerList", new { questionId = Model.Id }, null) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Answer Question", "AnswerQuestion", new { questionId = Model.Id }, null)
 </p>

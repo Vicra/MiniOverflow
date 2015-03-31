@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using OverflowVictor.Domain.Entities;
 
 namespace OverflowVictor.Web.Models
 {
@@ -12,6 +14,9 @@ namespace OverflowVictor.Web.Models
         public Guid Id { get; set; }
         public string Date { get; set; }
         public int Views { get; set; }
+        public virtual ICollection<Answer> Answers { get; set; }
+        public virtual ICollection<Comment> Comments { get; set; }
+        public virtual ICollection<Vote> Voters { get; set; }
 
     }
 }
