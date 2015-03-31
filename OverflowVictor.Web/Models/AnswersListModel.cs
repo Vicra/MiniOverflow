@@ -4,7 +4,6 @@ namespace OverflowVictor.Web.Models
 {
     public class AnswersListModel
     {
-        public string Title { get; set; }
         public string Description { get; set; }
         public int Votes { get; set; }
         public Guid AccountId { get; set; }
@@ -12,6 +11,7 @@ namespace OverflowVictor.Web.Models
         public string OwnerName { get; set; }
         public Guid Id { get; set; }
         public bool Correct { get; set; }
-
+        public string Date { get; set; }
+        public int Views { get; set; }
     }
 }

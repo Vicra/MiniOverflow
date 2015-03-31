@@ -20,6 +20,8 @@ namespace OverflowVictor.Domain.Entities
         }
         
         public virtual ICollection<Answer> Answers { get; set; }
+        public virtual ICollection<Comment> Comments { get; set; }
+        public virtual ICollection<Vote> Voters { get; set; }
         public int Votes { get; set; }
         public string Title { get; set; }   
         public string Description { get; set; }

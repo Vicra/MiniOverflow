@@ -53,7 +53,7 @@ namespace OverflowVictor.Web.Controllers
         }
 
         [AllowAnonymous]
-        public ActionResult QuestionDetail(Guid questionId,Guid ownerId)
+        public ActionResult QuestionDetail(Guid questionId)
         {
             Mapper.CreateMap<Question, QuestionDetailModel>();
             var question = unitOfWork.QuestionRepository.GetById(questionId);
@@ -63,7 +63,6 @@ namespace OverflowVictor.Web.Controllers
             TimeCalculator calculator=new TimeCalculator();
             string date = calculator.GetTime(question.CreationDate);
             model.Date = date;
-            model.OwnerId = ownerId;
             unitOfWork.QuestionRepository.Update(question);
             unitOfWork.Save();
             model.OwnerEmail = owner.Email;

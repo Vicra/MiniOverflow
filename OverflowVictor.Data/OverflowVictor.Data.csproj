@@ -52,6 +52,18 @@
     <Compile Include="Migrations\201503262355053_Initial.Designer.cs">
       <DependentUpon>201503262355053_Initial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201503310536181_Entities.cs" />
+    <Compile Include="Migrations\201503310536181_Entities.Designer.cs">
+      <DependentUpon>201503310536181_Entities.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201503310602157_Entities2.cs" />
+    <Compile Include="Migrations\201503310602157_Entities2.Designer.cs">
+      <DependentUpon>201503310602157_Entities2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201503310607504_Entities3.cs" />
+    <Compile Include="Migrations\201503310607504_Entities3.Designer.cs">
+      <DependentUpon>201503310607504_Entities3.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="OverflowVictorContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -73,6 +85,15 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201503262355053_Initial.resx">
       <DependentUpon>201503262355053_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201503310536181_Entities.resx">
+      <DependentUpon>201503310536181_Entities.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201503310602157_Entities2.resx">
+      <DependentUpon>201503310602157_Entities2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201503310607504_Entities3.resx">
+      <DependentUpon>201503310607504_Entities3.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

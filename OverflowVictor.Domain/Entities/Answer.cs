@@ -10,16 +10,21 @@ namespace OverflowVictor.Domain.Entities
     {
         public Guid Id { get; set; }
 
-        public Answer(){Id = Guid.NewGuid();}
-        public string Title { get; set; }
+        public Answer()
+        {
+            Id = Guid.NewGuid();
+            CreationDate = DateTime.Now;
+        }
         public string Description { get; set; }
         public int Votes { get; set; }
         public Guid AccountId { get; set; }
         public Guid QuestionId { get; set; }
         public bool Correct { get; set; }
         public int Views { get; set; }
+        public DateTime CreationDate { get; set; }
 
-        public ICollection<Guid> Users { get; set; }
+        public ICollection<Vote> Voters{ get; set; }
+        public ICollection<Comment> Comments{ get; set; }
         
     }
 }

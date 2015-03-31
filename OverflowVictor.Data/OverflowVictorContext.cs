@@ -16,8 +16,6 @@ namespace OverflowVictor.Data
         public DbSet<Account> Accounts { get; set; }
         public DbSet<Question> Questions { get; set; }
         public DbSet<Answer> Answers { get; set; }
-        public DbSet<AnswerComment> AnswerComments { get; set; }
-        public DbSet<QuestionComment> QuestionComments { get; set; } 
     }
 
     public static class ConnectionString
