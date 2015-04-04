@@ -30,11 +30,13 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EntityFramework">
-      <HintPath>..\packages\EntityFramework.6.1.2\lib\net45\EntityFramework.dll</HintPath>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
-    <Reference Include="EntityFramework.SqlServer">
-      <HintPath>..\packages\EntityFramework.6.1.2\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -48,21 +50,25 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IRepository.cs" />
-    <Compile Include="Migrations\201503262355053_Initial.cs" />
-    <Compile Include="Migrations\201503262355053_Initial.Designer.cs">
-      <DependentUpon>201503262355053_Initial.cs</DependentUpon>
+    <Compile Include="Migrations\201504040135442_initial.cs" />
+    <Compile Include="Migrations\201504040135442_initial.Designer.cs">
+      <DependentUpon>201504040135442_initial.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201503310536181_Entities.cs" />
-    <Compile Include="Migrations\201503310536181_Entities.Designer.cs">
-      <DependentUpon>201503310536181_Entities.cs</DependentUpon>
+    <Compile Include="Migrations\201504040203421_none.cs" />
+    <Compile Include="Migrations\201504040203421_none.Designer.cs">
+      <DependentUpon>201504040203421_none.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201503310602157_Entities2.cs" />
-    <Compile Include="Migrations\201503310602157_Entities2.Designer.cs">
-      <DependentUpon>201503310602157_Entities2.cs</DependentUpon>
+    <Compile Include="Migrations\201504040229361_nones.cs" />
+    <Compile Include="Migrations\201504040229361_nones.Designer.cs">
+      <DependentUpon>201504040229361_nones.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201503310607504_Entities3.cs" />
-    <Compile Include="Migrations\201503310607504_Entities3.Designer.cs">
-      <DependentUpon>201503310607504_Entities3.cs</DependentUpon>
+    <Compile Include="Migrations\201504040233414_noness.cs" />
+    <Compile Include="Migrations\201504040233414_noness.Designer.cs">
+      <DependentUpon>201504040233414_noness.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201504040246599_lastcin.cs" />
+    <Compile Include="Migrations\201504040246599_lastcin.Designer.cs">
+      <DependentUpon>201504040246599_lastcin.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="OverflowVictorContext.cs" />
@@ -83,17 +89,20 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201503262355053_Initial.resx">
-      <DependentUpon>201503262355053_Initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201504040135442_initial.resx">
+      <DependentUpon>201504040135442_initial.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201503310536181_Entities.resx">
-      <DependentUpon>201503310536181_Entities.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201504040203421_none.resx">
+      <DependentUpon>201504040203421_none.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201503310602157_Entities2.resx">
-      <DependentUpon>201503310602157_Entities2.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201504040229361_nones.resx">
+      <DependentUpon>201504040229361_nones.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201503310607504_Entities3.resx">
-      <DependentUpon>201503310607504_Entities3.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201504040233414_noness.resx">
+      <DependentUpon>201504040233414_noness.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201504040246599_lastcin.resx">
+      <DependentUpon>201504040246599_lastcin.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

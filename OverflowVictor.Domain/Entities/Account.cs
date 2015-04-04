@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -7,7 +9,7 @@ using System.Threading.Tasks;
 namespace OverflowVictor.Domain.Entities
 {
     public class Account : IEntity
-    {
+    {   
         public Guid Id{get;private set;}
 
         public Account()
@@ -15,6 +17,7 @@ namespace OverflowVictor.Domain.Entities
             Id = Guid.NewGuid();
             Activated = false;
             RegisterDate= DateTime.Now;
+            LastSeen = DateTime.Now;
         }
 
         public string Name { get; set; }
@@ -25,10 +28,6 @@ namespace OverflowVictor.Domain.Entities
         public DateTime RegisterDate { get; set; }
         public int Views { get; set; }
         public DateTime LastSeen { get; set; }
-        public ICollection<Question> Questions { get; set; }
-        public ICollection<Answer> Answers { get; set; }
-
-
 
     }
 }

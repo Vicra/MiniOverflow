@@ -6,14 +6,14 @@ namespace OverflowVictor.Data.Migrations
     using System.Data.Entity.Migrations.Infrastructure;
     using System.Resources;
     
-    [GeneratedCode("EntityFramework.Migrations", "6.1.2-31219")]
-    public sealed partial class Entities3 : IMigrationMetadata
+    [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
+    public sealed partial class nones : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(Entities3));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(nones));
         
         string IMigrationMetadata.Id
         {
-            get { return "201503310607504_Entities3"; }
+            get { return "201504040229361_nones"; }
         }
         
         string IMigrationMetadata.Source

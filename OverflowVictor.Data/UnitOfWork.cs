@@ -1,11 +1,12 @@
 
 using System;
 using System.Security.Principal;
+using System.Threading;
 using OverflowVictor.Domain.Entities;
 
 namespace OverflowVictor.Data
 {
-    public class UnitOfWork:IDisposable
+    public class UnitOfWork
     {
         private OverflowVictorContext context = new OverflowVictorContext();
         private Repository<Account> accountRepository;
@@ -53,7 +54,7 @@ namespace OverflowVictor.Data
 
         public void Save()
         {
-            context.SaveChanges();
+             context.SaveChanges();
         }
         private bool disposed = false;
 

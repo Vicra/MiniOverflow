@@ -51,6 +51,8 @@ namespace OverflowVictor.Web.Controllers
                 {
                     Mapper.CreateMap<AccountRegisterModel, Account>();
                     var account = Mapper.Map<AccountRegisterModel, Account>(model);
+                    var context = new OverflowVictorContext();
+
                     unitOfWork.AccountRepository.Insert(account);
                     unitOfWork.Save();
 
