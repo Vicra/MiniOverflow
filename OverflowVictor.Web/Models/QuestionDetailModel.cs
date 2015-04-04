@@ -9,6 +9,9 @@ namespace OverflowVictor.Web.Models
         public string Title { get; set; }
         public string Description { get; set; }
         public string OwnerEmail { get; set; }
+        public string Name { get; set; }
+        public string LastName { get; set; }
+
         public Guid OwnerId { get; set; }
         public int Votes { get; set; }
         public Guid Id { get; set; }

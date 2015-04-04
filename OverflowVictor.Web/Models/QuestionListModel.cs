@@ -13,7 +13,6 @@ namespace OverflowVictor.Web.Models
         public int AnswerCount { get; set; }
         public int Views { get; set; }
         public string Date { get; set; }
-
-
+        public string LastName { get; set; }
     }
 }

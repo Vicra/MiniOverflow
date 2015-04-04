@@ -11,7 +11,11 @@
     </style>
 </head>
 <br/>
-<h4>Answers</h4>
+@if (Model.Any())
+{
+    <h4>Answers</h4>
+}
+
 <hr/>
 <ul>
     @foreach (var item in Model)
@@ -36,7 +40,7 @@
             <div style="margin-left: 25%; background-color: lightslategray; color: black; width: 100px;">
                 Asked @item.Date
                 <br/>by
-                @Html.ActionLink(item.OwnerName, "GoToProfile", "Account", new {ownerId = item.AccountId}, null)
+                @Html.ActionLink(item.OwnerName+" "+item.LastName, "GoToProfile", "Account", new {ownerId = item.AccountId}, null)
                 <br/>
                 Views @item.Views
             </div>

@@ -31,6 +31,7 @@ namespace OverflowVictor.Web.Controllers
                 model.Date = date;
                 model.OwnerId = q.Owner;
                 model.OwnerName = unitOfWork.AccountRepository.GetById(model.OwnerId).Name;
+                model.LastName = unitOfWork.AccountRepository.GetById(model.OwnerId).LastName;
                 models.Add(model); 
             }
             return View(models);
@@ -66,6 +67,8 @@ namespace OverflowVictor.Web.Controllers
             unitOfWork.QuestionRepository.Update(question);
             unitOfWork.Save();
             model.OwnerEmail = owner.Email;
+            model.Name = owner.Name;
+            model.LastName =owner.LastName;
             return View(model);
         }
 
@@ -78,6 +81,8 @@ namespace OverflowVictor.Web.Controllers
             foreach (Answer a in quest.Answers)
             {
                 var answer = Mapper.Map<Answer, AnswersListModel>(a);
+                answer.OwnerName = unitOfWork.AccountRepository.GetById(answer.AccountId).Name;
+                answer.LastName = unitOfWork.AccountRepository.GetById(answer.AccountId).LastName;
                 var account = unitOfWork.AccountRepository.GetById(a.AccountId);
                 answer.OwnerName = account.Name;
                 models.Add(answer);
@@ -96,7 +101,11 @@ namespace OverflowVictor.Web.Controllers
             Mapper.CreateMap<AnswerQuestionModel, Answer>().ReverseMap();
             var answer = Mapper.Map<AnswerQuestionModel, Answer>(model);
             answer.QuestionId = questionId;
+            var question = unitOfWork.QuestionRepository.GetById(questionId);
+            question.AnswerCount += 1;
+
             answer.AccountId = Guid.Parse(HttpContext.User.Identity.Name);
+            unitOfWork.QuestionRepository.Update(question);
             unitOfWork.AnswerRepository.Insert(answer);
             unitOfWork.Save();
             return RedirectToAction("Index", "Question");

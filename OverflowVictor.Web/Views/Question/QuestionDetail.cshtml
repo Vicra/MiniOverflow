@@ -29,7 +29,7 @@
     <div style="margin-left: 25%; background-color: sienna; width: 200px;">
         Asked @Model.Date
         <br/>by
-        @Html.ActionLink(Model.OwnerEmail, "GoToProfile", "Account", new {ownerId = Model.OwnerId}, null)
+        @Html.ActionLink(Model.Name +" "+ Model.LastName, "GoToProfile", "Account", new {ownerId = Model.OwnerId}, null)
         <br/>
         Views @Model.Views
     </div>

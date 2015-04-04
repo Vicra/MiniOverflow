@@ -47,7 +47,7 @@
                 <blockquote style="display: inline-block">
                     @Html.ActionLink(@item.Title, "QuestionDetail", "Question", new {questionId = item.Id}, null)
                     <footer>Asked @item.Date by
-                        @Html.ActionLink(@item.OwnerName, "GoToProfile", "Account", new {ownerId = item.OwnerId}, null)
+                        @Html.ActionLink(@item.OwnerName+" "+@item.LastName, "GoToProfile", "Account", new {ownerId = item.OwnerId}, null)
                     </footer>
                 </blockquote>
             </div>
