@@ -28,6 +28,8 @@ namespace OverflowVictor.Domain.Entities
         public DateTime RegisterDate { get; set; }
         public int Views { get; set; }
         public DateTime LastSeen { get; set; }
+        public ICollection<Question> Questions { get; set; }
+        public ICollection<Answer> Answers { get; set; }
 
     }
 }

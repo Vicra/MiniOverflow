@@ -11,8 +11,11 @@ namespace OverflowVictor.Data
         internal OverflowVictorContext context;
         internal DbSet<TEntity> DbSet;
         private bool disposed;
-        
 
+        public void Load(TEntity entity, string list)
+        {
+            context.Entry(entity).Collection(list).Load();
+        }
         public Repository(OverflowVictorContext context)
         {
             this.context = context;

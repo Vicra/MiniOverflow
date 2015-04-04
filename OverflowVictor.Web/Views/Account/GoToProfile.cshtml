@@ -4,47 +4,100 @@
     ViewBag.Title = "GoToProfile";
 }
 
-<h2>@Model.Name</h2>
+<h2>@Model.Name  @Model.LastName</h2>
 
 <div>
-	<hr />
+    <hr/>
     <dl class="dl-horizontal">
         <dt>
             <img src="https://pbs.twimg.com/profile_images/378800000695763945/41ca681112a2d3f10c0893711d45cef8_400x400.jpeg" class="img-thumbnail" style="width: 100px; height: 100px">
         </dt>
         <dd>
+
+        </dd>
+        <dt>
+            @if (Model.Email.Any())
+            {
+                @Html.DisplayNameFor(model => model.Email)
+            }
+            
+        </dt>
+
+        <dd>
+            @if (Model.Email.Any())
+            {
+                @Html.DisplayFor(model => model.Email)
+            }
             
         </dd>
+
         <dt>
-            @Html.DisplayNameFor(model => model.Email)
+            @if (Model.RegisterDate.Any())
+            {
+                @Html.DisplayNameFor(model => model.RegisterDate)
+            }
+            
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Email)
+            @if (Model.RegisterDate.Any())
+            {
+                @Html.DisplayFor(model => model.RegisterDate)
+            }
+            
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.RegisterDate)
+            @if (Model.Views > 0)
+            {
+                @Html.DisplayNameFor(model => model.Views)
+            }
+            
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.RegisterDate)
+            @if (Model.Views > 0)
+            {
+                @Html.DisplayFor(model => model.Views)
+            }
+            
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Views)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Views)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.LastSeen)
+            @if (Model.LastSeen.Any())
+            {
+                @Html.DisplayNameFor(model => model.LastSeen)
+            }
+            
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.LastSeen)
+            @if (Model.LastSeen.Any())
+            {
+                @Html.DisplayFor(model => model.LastSeen)
+            }
+            
         </dd>
     </dl>
+</div>
+<div>
+    <ul>
+        @foreach (var item in Model.Questions)
+        {
+            <li>
+                @item.ToString();
+            </li>
+        }
+    </ul>
+</div>
+<br/>
+<div>
+    <ul>
+        @foreach (var item in Model.Answers)
+        {
+            <li>
+                @item.ToString();
+            </li>
+        }
+    </ul>
 </div>
 

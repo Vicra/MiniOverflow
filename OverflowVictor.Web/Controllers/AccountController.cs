@@ -51,7 +51,6 @@ namespace OverflowVictor.Web.Controllers
                 {
                     Mapper.CreateMap<AccountRegisterModel, Account>();
                     var account = Mapper.Map<AccountRegisterModel, Account>(model);
-                    var context = new OverflowVictorContext();
 
                     unitOfWork.AccountRepository.Insert(account);
                     unitOfWork.Save();
@@ -176,12 +175,20 @@ namespace OverflowVictor.Web.Controllers
         }
         public ActionResult GoToProfile(Guid ownerId)
         {
-            Mapper.CreateMap<Account, AccountProfileModel>();
             var owner = unitOfWork.AccountRepository.GetById(ownerId);
+            unitOfWork.AccountRepository.Load(owner, "Questions");
+            unitOfWork.AccountRepository.Load(owner, "Answers");
+            Mapper.CreateMap<Account, AccountProfileModel>();
             owner.Views +=1;
+            owner.LastSeen = DateTime.Now;
+            TimeCalculator calculator=new TimeCalculator();
+            owner.Questions = owner.Questions.OrderByDescending(x => x.CreationDate).ToList();
+            owner.Answers = owner.Answers.OrderByDescending(x => x.CreationDate).ToList();
             unitOfWork.AccountRepository.Update(owner);
-            var o = unitOfWork.AccountRepository.GetById(ownerId);
-            var model = Mapper.Map<Account, AccountProfileModel>(o);
+            unitOfWork.Save();
+            var model = Mapper.Map<Account, AccountProfileModel>(owner);
+            model.LastSeen = calculator.GetTime(DateTime.Now);
+            model.RegisterDate = calculator.GetTime(DateTime.Now);
             return View(model);
         }
 
