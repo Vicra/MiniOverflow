@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.DynamicData;
 using System.Web.Mvc;
 using System.Web.Routing;
 using AutoMapper;
@@ -112,13 +113,16 @@ namespace OverflowVictor.Web.Controllers
         }
         public ActionResult VoteUpQuestion(Guid questId)
         {
+            var ownerId = Guid.Parse(HttpContext.User.Identity.Name);
+
             var question = unitOfWork.QuestionRepository.GetById(questId);
             question.Votes += 1;
             unitOfWork.QuestionRepository.Update(question);
             unitOfWork.Save();
-            return RedirectToAction("QuestionDetail", "Question",new{questionId=questId});
+            return RedirectToAction("QuestionDetail", "Question", new { questionId = questId });
+            
         }
-        
+
         public ActionResult VoteDownQuestion(Guid questId)
         {
             var question = unitOfWork.QuestionRepository.GetById(questId);
@@ -134,7 +138,7 @@ namespace OverflowVictor.Web.Controllers
             answer.Votes += 1;
             unitOfWork.AnswerRepository.Update(answer);
             unitOfWork.Save();
-            return RedirectToAction("AnswerList", "Question", new{questionId=answer.QuestionId});
+            return RedirectToAction("QuestionDetail", "Question", new { questionId = answer.QuestionId });
         }
         
         public ActionResult VoteDownAnswer(Guid answerId)
@@ -143,7 +147,7 @@ namespace OverflowVictor.Web.Controllers
             answer.Votes -= 1;
             unitOfWork.AnswerRepository.Update(answer);
             unitOfWork.Save();
-            return RedirectToAction("AnswerList", "Question", new { questionId = answer.QuestionId });
+            return RedirectToAction("QuestionDetail", "Question", new { questionId = answer.QuestionId });
 
         }
 

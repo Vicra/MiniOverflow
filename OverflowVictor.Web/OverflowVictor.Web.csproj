@@ -211,7 +211,6 @@
     <Content Include="Views\Question\Index.cshtml" />
     <Content Include="Views\Question\AskQuestion.cshtml" />
     <Content Include="Views\Question\QuestionDetail.cshtml" />
-    <Content Include="Views\Question\AnswerQuestion.cshtml" />
     <Content Include="Views\Account\GoToProfile.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Account\ChangePassword.cshtml" />
@@ -219,6 +218,7 @@
     <Content Include="Views\Comment\AnswersComments.cshtml" />
     <Content Include="Views\Account\EditProfile.cshtml" />
     <Content Include="Views\Question\AnswerList.cshtml" />
+    <Content Include="Views\Question\AnswerQuestion.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\OverflowVictor.Data\OverflowVictor.Data.csproj">

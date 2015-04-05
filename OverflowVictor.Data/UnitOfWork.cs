@@ -12,6 +12,8 @@ namespace OverflowVictor.Data
         private Repository<Account> accountRepository;
         private Repository<Question> questionRepository;
         private Repository<Answer> answerRepository;
+        private Repository<Comment> commentRepository;
+        private Repository<Vote> voteRepository;
 
         public Repository<Account> AccountRepository
         {
@@ -49,6 +51,30 @@ namespace OverflowVictor.Data
                     this.answerRepository = new Repository<Answer>(context);
                 }
                 return answerRepository;
+            }
+        }
+        public Repository<Comment> CommentRepository
+        {
+            get
+            {
+
+                if (this.commentRepository== null)
+                {
+                    this.commentRepository = new Repository<Comment>(context);
+                }
+                return commentRepository;
+            }
+        }
+        public Repository<Vote> VoteRepository
+        {
+            get
+            {
+
+                if (this.voteRepository == null)
+                {
+                    this.voteRepository = new Repository<Vote>(context);
+                }
+                return voteRepository;
             }
         }
 

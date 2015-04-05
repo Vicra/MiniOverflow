@@ -10,12 +10,12 @@
     <hr/>
     <dl class="dl-horizontal">
         <dt>
-            @using (Html.BeginForm("VoteUpQuestion", "Question", new {questId = Model.Id}))
+            @using (Html.BeginForm("VoteUpQuestion", "Question",new{questId=Model.Id}))
             {
                 <button class="btn btn-xs btn-default"><span class="glyphicon glyphicon-thumbs-up"></span></button>
             }
             <label style="text-align: center; margin-left: 65%">@Model.Votes </label>
-            @using (Html.BeginForm("VoteDownQuestion", "Question", new {questId = Model.Id}))
+            @using (Html.BeginForm("VoteDownQuestion", "Question", new { questId = Model.Id }))
             {
                 <button class="btn btn-xs btn-default"><span class="glyphicon glyphicon-thumbs-down"></span></button>
             }
