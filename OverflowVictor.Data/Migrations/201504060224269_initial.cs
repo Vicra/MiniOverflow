@@ -81,46 +81,22 @@ namespace OverflowVictor.Data.Migrations
                 .ForeignKey("dbo.Accounts", t => t.Account_Id)
                 .Index(t => t.Account_Id);
             
-            CreateTable(
-                "dbo.Votes",
-                c => new
-                    {
-                        Id = c.Guid(nullable: false),
-                        Answer_Id = c.Guid(),
-                        Question_Id = c.Guid(),
-                        Voter_Id = c.Guid(),
-                    })
-                .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Answers", t => t.Answer_Id)
-                .ForeignKey("dbo.Questions", t => t.Question_Id)
-                .ForeignKey("dbo.Accounts", t => t.Voter_Id)
-                .Index(t => t.Answer_Id)
-                .Index(t => t.Question_Id)
-                .Index(t => t.Voter_Id);
-            
         }
         
         public override void Down()
         {
             DropForeignKey("dbo.Questions", "Account_Id", "dbo.Accounts");
             DropForeignKey("dbo.Answers", "AccountId", "dbo.Accounts");
-            DropForeignKey("dbo.Votes", "Voter_Id", "dbo.Accounts");
-            DropForeignKey("dbo.Votes", "Question_Id", "dbo.Questions");
-            DropForeignKey("dbo.Votes", "Answer_Id", "dbo.Answers");
             DropForeignKey("dbo.Comments", "Question_Id", "dbo.Questions");
             DropForeignKey("dbo.Answers", "QuestionId", "dbo.Questions");
             DropForeignKey("dbo.Comments", "Answer_Id", "dbo.Answers");
             DropForeignKey("dbo.Comments", "Account_Id", "dbo.Accounts");
-            DropIndex("dbo.Votes", new[] { "Voter_Id" });
-            DropIndex("dbo.Votes", new[] { "Question_Id" });
-            DropIndex("dbo.Votes", new[] { "Answer_Id" });
             DropIndex("dbo.Questions", new[] { "Account_Id" });
             DropIndex("dbo.Comments", new[] { "Question_Id" });
             DropIndex("dbo.Comments", new[] { "Answer_Id" });
             DropIndex("dbo.Comments", new[] { "Account_Id" });
             DropIndex("dbo.Answers", new[] { "QuestionId" });
             DropIndex("dbo.Answers", new[] { "AccountId" });
-            DropTable("dbo.Votes");
             DropTable("dbo.Questions");
             DropTable("dbo.Comments");
             DropTable("dbo.Answers");

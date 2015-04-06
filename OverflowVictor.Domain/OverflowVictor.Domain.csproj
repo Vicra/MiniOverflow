@@ -48,7 +48,6 @@
     <Compile Include="Entities\Comment.cs" />
     <Compile Include="Entities\IEntity.cs" />
     <Compile Include="Entities\Question.cs" />
-    <Compile Include="Entities\Vote.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

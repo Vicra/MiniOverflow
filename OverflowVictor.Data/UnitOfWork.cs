@@ -13,7 +13,7 @@ namespace OverflowVictor.Data
         private Repository<Question> questionRepository;
         private Repository<Answer> answerRepository;
         private Repository<Comment> commentRepository;
-        private Repository<Vote> voteRepository;
+        
 
         public Repository<Account> AccountRepository
         {
@@ -65,18 +65,7 @@ namespace OverflowVictor.Data
                 return commentRepository;
             }
         }
-        public Repository<Vote> VoteRepository
-        {
-            get
-            {
-
-                if (this.voteRepository == null)
-                {
-                    this.voteRepository = new Repository<Vote>(context);
-                }
-                return voteRepository;
-            }
-        }
+        
 
         public void Save()
         {

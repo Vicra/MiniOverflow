@@ -23,7 +23,7 @@ namespace OverflowVictor.Domain.Entities
         public int Views { get; set; }
         public DateTime CreationDate { get; set; }
 
-        public ICollection<Vote> Voters{ get; set; }
+        
         public ICollection<Comment> Comments{ get; set; }
         
     }
