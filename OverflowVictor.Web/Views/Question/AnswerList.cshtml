@@ -15,12 +15,32 @@
 {
     <h4>Answers</h4>
 }
-
+@{
+    var userid = HttpContext.Current.User.Identity.Name;
+    var c = userid.ToString();
+}
 <hr/>
-<ul>
+<ul type="none">
     @foreach (var item in Model)
     {
         <li>
+            <div>
+                @{
+                  using (Html.BeginForm("PressCorrect", "Question", item))
+                  {
+                      if (item.Correct)
+                      {
+                        <button class="btn btn-success"><span class="glyphicon glyphicon-ok"></span>  </button>
+                      }
+                      else
+                      {
+                        <button class="btn btn-default"><span class="glyphicon glyphicon-ok"></span>  </button>
+                      }
+                  }
+                }
+                    
+                
+            </div>
             <div class="block" style="margin-left: 5%">
                 @using (Html.BeginForm("VoteUpAnswer", "Question", new {answerId = item.Id}))
                 {
@@ -37,10 +57,10 @@
                     @item.Description
                 </h4>
             </div>
-            <div style="margin-left: 25%; background-color: lightslategray; color: black; width: 100px;">
-                Asked @item.Date
+            <div style="margin-left: 25%; background-color: lightslategray; color: black; width: 200px;">
+                Answered @item.Date
                 <br/>by
-                @Html.ActionLink(item.OwnerName+" "+item.LastName, "GoToProfile", "Account", new {ownerId = item.AccountId}, null)
+                @Html.ActionLink(item.OwnerName + " " + item.LastName, "GoToProfile", "Account", new {ownerId = item.AccountId}, null)
                 <br/>
                 Views @item.Views
             </div>

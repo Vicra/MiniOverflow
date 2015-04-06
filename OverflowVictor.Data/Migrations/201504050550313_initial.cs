@@ -38,6 +38,8 @@ namespace OverflowVictor.Data.Migrations
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Questions", t => t.QuestionId, cascadeDelete: true)
+                .ForeignKey("dbo.Accounts", t => t.AccountId, cascadeDelete: true)
+                .Index(t => t.AccountId)
                 .Index(t => t.QuestionId);
             
             CreateTable(
@@ -47,16 +49,16 @@ namespace OverflowVictor.Data.Migrations
                         Id = c.Guid(nullable: false),
                         CreationDate = c.DateTime(nullable: false),
                         Description = c.String(),
+                        Account_Id = c.Guid(),
                         Answer_Id = c.Guid(),
-                        Owner_Id = c.Guid(),
                         Question_Id = c.Guid(),
                     })
                 .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.Accounts", t => t.Account_Id)
                 .ForeignKey("dbo.Answers", t => t.Answer_Id)
-                .ForeignKey("dbo.Accounts", t => t.Owner_Id)
                 .ForeignKey("dbo.Questions", t => t.Question_Id)
+                .Index(t => t.Account_Id)
                 .Index(t => t.Answer_Id)
-                .Index(t => t.Owner_Id)
                 .Index(t => t.Question_Id);
             
             CreateTable(
@@ -73,8 +75,11 @@ namespace OverflowVictor.Data.Migrations
                         HasCorrectAnswer = c.Boolean(nullable: false),
                         Views = c.Int(nullable: false),
                         AnswerCount = c.Int(nullable: false),
+                        Account_Id = c.Guid(),
                     })
-                .PrimaryKey(t => t.Id);
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.Accounts", t => t.Account_Id)
+                .Index(t => t.Account_Id);
             
             CreateTable(
                 "dbo.Votes",
@@ -97,20 +102,24 @@ namespace OverflowVictor.Data.Migrations
         
         public override void Down()
         {
+            DropForeignKey("dbo.Questions", "Account_Id", "dbo.Accounts");
+            DropForeignKey("dbo.Answers", "AccountId", "dbo.Accounts");
             DropForeignKey("dbo.Votes", "Voter_Id", "dbo.Accounts");
             DropForeignKey("dbo.Votes", "Question_Id", "dbo.Questions");
             DropForeignKey("dbo.Votes", "Answer_Id", "dbo.Answers");
             DropForeignKey("dbo.Comments", "Question_Id", "dbo.Questions");
             DropForeignKey("dbo.Answers", "QuestionId", "dbo.Questions");
-            DropForeignKey("dbo.Comments", "Owner_Id", "dbo.Accounts");
             DropForeignKey("dbo.Comments", "Answer_Id", "dbo.Answers");
+            DropForeignKey("dbo.Comments", "Account_Id", "dbo.Accounts");
             DropIndex("dbo.Votes", new[] { "Voter_Id" });
             DropIndex("dbo.Votes", new[] { "Question_Id" });
             DropIndex("dbo.Votes", new[] { "Answer_Id" });
+            DropIndex("dbo.Questions", new[] { "Account_Id" });
             DropIndex("dbo.Comments", new[] { "Question_Id" });
-            DropIndex("dbo.Comments", new[] { "Owner_Id" });
             DropIndex("dbo.Comments", new[] { "Answer_Id" });
+            DropIndex("dbo.Comments", new[] { "Account_Id" });
             DropIndex("dbo.Answers", new[] { "QuestionId" });
+            DropIndex("dbo.Answers", new[] { "AccountId" });
             DropTable("dbo.Votes");
             DropTable("dbo.Questions");
             DropTable("dbo.Comments");

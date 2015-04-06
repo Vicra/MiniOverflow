@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace OverflowVictor.Domain.Entities
 {
-    public class Vote
+    public class Vote:IEntity
     {
         public Vote()
         {

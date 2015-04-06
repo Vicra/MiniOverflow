@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace OverflowVictor.Domain.Entities
 {
-    public class Comment
+    public class Comment:IEntity
     {
         public Comment()
         {
@@ -16,8 +16,8 @@ namespace OverflowVictor.Domain.Entities
         public Guid Id { get; private set; }
         public DateTime CreationDate { get; set; }
         public string Description { get; set; }
-        public virtual Account Owner { get; set; }
+        public virtual Account Account { get; set; }
         public Question Question { get; set; }
-        public Answer Answer { get; set; }
+        public Answer Answer{ get; set; }
     }
 }

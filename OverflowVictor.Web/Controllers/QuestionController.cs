@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Web;
 using System.Web.DynamicData;
 using System.Web.Mvc;
@@ -27,7 +28,8 @@ namespace OverflowVictor.Web.Controllers
             TimeCalculator calculator=new TimeCalculator();
             foreach (var q in questions)
             {
-                var date=calculator.GetTime(q.CreationDate);
+                //var date=calculator.GetTime(q.CreationDate);
+                var date = calculator.GetTime(q.CreationDate);
                 var model = Mapper.Map<Question, QuestionListModel>(q);
                 model.Date = date;
                 model.OwnerId = q.Owner;
@@ -78,6 +80,7 @@ namespace OverflowVictor.Web.Controllers
         {
             var quest = unitOfWork.QuestionRepository.GetById(questionId);
             List<AnswersListModel> models = new List<AnswersListModel>();
+            TimeCalculator calculator=new TimeCalculator();
             Mapper.CreateMap<Answer, AnswersListModel>();
             foreach (Answer a in quest.Answers)
             {
@@ -86,6 +89,7 @@ namespace OverflowVictor.Web.Controllers
                 answer.LastName = unitOfWork.AccountRepository.GetById(answer.AccountId).LastName;
                 var account = unitOfWork.AccountRepository.GetById(a.AccountId);
                 answer.OwnerName = account.Name;
+                answer.Date = calculator.GetTime(a.CreationDate);
                 models.Add(answer);
             }
             return View(models);
@@ -151,20 +155,43 @@ namespace OverflowVictor.Web.Controllers
 
         }
 
-        public ActionResult SelectCorrectAnswer(AnswersListModel model)
+        
+        public ActionResult PressCorrect(AnswersListModel model)
         {
             var question = unitOfWork.QuestionRepository.GetById(model.QuestionId);
-            if (question.HasCorrectAnswer == false)
+            var userId = Guid.Parse(HttpContext.User.Identity.Name);
+            if (model.AccountId == userId)
             {
-                Mapper.CreateMap<AnswersListModel, Answer>();
-                question.HasCorrectAnswer = true;
-                var answer = Mapper.Map<AnswersListModel, Answer>(model);
-                answer.Correct = true;
-                unitOfWork.QuestionRepository.Update(question);
-                unitOfWork.AnswerRepository.Update(answer);
-                unitOfWork.Save();
+                    if (model.Correct)
+                    {
+                        question.HasCorrectAnswer = false;
+                        UnMark(model);
+                    }
+                    else if (!model.Correct)
+                    {
+                        Mark(model);
+                        question.HasCorrectAnswer = true;
+                    }
+                    unitOfWork.QuestionRepository.Update(question);
+                    unitOfWork.Save();
             }
-            return RedirectToAction("AnswerList", "Question", new { questionId = model.QuestionId });
+            return RedirectToAction("QuestionDetail", "Question", new { questionId = model.QuestionId });
+        }
+
+        private void Mark(AnswersListModel model)
+        {
+            Mapper.CreateMap<AnswersListModel, Answer>();
+            var answer = Mapper.Map<AnswersListModel, Answer>(model);
+            answer.Correct = true;
+            unitOfWork.AnswerRepository.Update(answer);
+        }
+
+        private void UnMark(AnswersListModel model)
+        {
+            Mapper.CreateMap<AnswersListModel, Answer>();
+            var answer = Mapper.Map<AnswersListModel, Answer>(model);
+            answer.Correct = false;
+            unitOfWork.AnswerRepository.Update(answer);
         }
     }
 }

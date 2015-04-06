@@ -50,29 +50,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IRepository.cs" />
-    <Compile Include="Migrations\201504040135442_initial.cs" />
-    <Compile Include="Migrations\201504040135442_initial.Designer.cs">
-      <DependentUpon>201504040135442_initial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201504040203421_none.cs" />
-    <Compile Include="Migrations\201504040203421_none.Designer.cs">
-      <DependentUpon>201504040203421_none.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201504040229361_nones.cs" />
-    <Compile Include="Migrations\201504040229361_nones.Designer.cs">
-      <DependentUpon>201504040229361_nones.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201504040233414_noness.cs" />
-    <Compile Include="Migrations\201504040233414_noness.Designer.cs">
-      <DependentUpon>201504040233414_noness.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201504040246599_lastcin.cs" />
-    <Compile Include="Migrations\201504040246599_lastcin.Designer.cs">
-      <DependentUpon>201504040246599_lastcin.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201504040357459_accountentity.cs" />
-    <Compile Include="Migrations\201504040357459_accountentity.Designer.cs">
-      <DependentUpon>201504040357459_accountentity.cs</DependentUpon>
+    <Compile Include="Migrations\201504050550313_initial.cs" />
+    <Compile Include="Migrations\201504050550313_initial.Designer.cs">
+      <DependentUpon>201504050550313_initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="OverflowVictorContext.cs" />
@@ -93,23 +73,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201504040135442_initial.resx">
-      <DependentUpon>201504040135442_initial.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201504040203421_none.resx">
-      <DependentUpon>201504040203421_none.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201504040229361_nones.resx">
-      <DependentUpon>201504040229361_nones.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201504040233414_noness.resx">
-      <DependentUpon>201504040233414_noness.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201504040246599_lastcin.resx">
-      <DependentUpon>201504040246599_lastcin.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201504040357459_accountentity.resx">
-      <DependentUpon>201504040357459_accountentity.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201504050550313_initial.resx">
+      <DependentUpon>201504050550313_initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
